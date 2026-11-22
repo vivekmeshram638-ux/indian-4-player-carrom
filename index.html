@@ -115,12 +115,12 @@ canvas {
   max-width: 360px;
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 12px;
 }
 
 .mode-btn {
   width: 100%;
-  padding: 14px 18px;
+  padding: 15px 18px;
   border-radius: 14px;
   border: 2px solid rgba(255, 232, 178, 0.45);
   font-size: 16.5px;
@@ -183,7 +183,7 @@ canvas {
 }
 
 /* MODALS & AD OVERLAY */
-#onlineModal, #settingsModal, #winModal, #authModal, #adOverlayModal {
+#modePlayersModal, #onlineModal, #settingsModal, #winModal, #authModal, #adOverlayModal {
   display: none;
   position: fixed;
   inset: 0;
@@ -230,6 +230,37 @@ canvas {
   color: #fff;
   font-weight: bold;
   cursor: pointer;
+}
+
+.choice-btn-2p {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #8ac4ff;
+  background: linear-gradient(180deg, #1d8cf8, #0e56a8);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.choice-btn-4p {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #ffe28a;
+  background: linear-gradient(180deg, #28a745, #176b2b);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .auth-provider-btn {
@@ -392,6 +423,27 @@ canvas {
   font-weight: 700;
   cursor: pointer;
   margin-top: 6px;
+}
+
+.king-rank-box {
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 217, 125, 0.35);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.king-1st {
+  color: #ffd97d;
+  font-weight: 900;
+}
+
+.king-2nd {
+  color: #d7e5ff;
+  font-weight: 800;
 }
 
 /* IN-GAME TOP HUD */
@@ -690,39 +742,62 @@ canvas {
   <div class="top-bar">
     <div class="pill-stat">Coins: <span id="walletCoins">4800</span></div>
     <div style="display:flex; gap:6px; align-items:center;">
-      <button class="account-chip-btn" id="openAuthBtn">Sign In</button>
-      <button class="icon-btn" id="openSettingsHome" title="Settings">⚙</button>
+      <button type="button" class="account-chip-btn" id="openAuthBtn">Sign In</button>
+      <button type="button" class="icon-btn" id="openSettingsHome" title="Settings">⚙</button>
     </div>
   </div>
 
   <div class="logo-area">
     <div class="logo-badge">INDIAN 4 PLAYER CARROM</div>
-    <div class="logo-sub">OFFLINE 4P • VS BOT • ONLINE</div>
+    <div class="logo-sub">OFFLINE • VS BOT • ONLINE (2P & 4P)</div>
   </div>
 
   <div class="mode-menu">
-    <button class="mode-btn btn-offline" id="startOfflineBtn">
-      <span>Play Offline (4P)</span>
-      <span class="mode-tag">PASS & PLAY</span>
+    <button type="button" class="mode-btn btn-offline" id="startOfflineBtn">
+      <span>Play Offline</span>
+      <span class="mode-tag">2P / 4P</span>
     </button>
 
-    <button class="mode-btn btn-bot" id="startBotBtn">
+    <button type="button" class="mode-btn btn-bot" id="startBotBtn">
       <span>Play Vs Bot</span>
-      <span class="mode-tag">AI OPPONENT</span>
+      <span class="mode-tag">2P / 4P AI</span>
     </button>
 
-    <button class="mode-btn btn-online" id="openOnlineBtn">
+    <button type="button" class="mode-btn btn-online" id="openOnlineBtn">
       <span>Play Online</span>
-      <span class="mode-tag">ONLINE + ADS</span>
+      <span class="mode-tag">2P / 4P + ADS</span>
     </button>
   </div>
 
-  <button class="bonus-ad-btn" id="homeBonusAdBtn">
+  <button type="button" class="bonus-ad-btn" id="homeBonusAdBtn">
     <span>Watch Ad for Bonus Coins</span>
     <span class="bonus-pill">+250 COINS</span>
   </button>
 
-  <div class="lobby-footer">Indian 4 Player Carrom • Web & Store Ready Build</div>
+  <div class="lobby-footer">Indian 4 Player Carrom • 1st & 2nd King Ready</div>
+</div>
+
+<!-- 2P / 4P SELECTOR INSIDE CHOSEN MODE -->
+<div id="modePlayersModal">
+  <div class="panel-card">
+    <div class="panel-header">
+      <h3 id="modeChoiceTitle">Select Players</h3>
+      <button type="button" class="close-x" id="closeModeChoiceBtn">✕</button>
+    </div>
+    <p id="modeChoiceDesc" style="font-size:12.5px; color:#e6cfa8; margin-bottom:12px;">
+      Is mode mein kitne players khelenge?
+    </p>
+
+    <button type="button" class="choice-btn-2p" id="choose2PlayersBtn">
+      <span>2 Players (P1 vs P2)</span>
+      <span class="mode-tag">1v1</span>
+    </button>
+
+    <button type="button" class="choice-btn-4p" id="choose4PlayersBtn">
+      <span>4 Players (P1,P3 vs P2,P4)</span>
+      <span class="mode-tag">2v2</span>
+    </button>
+  </div>
 </div>
 
 <!-- ACCOUNT SIGN-IN MODAL (GOOGLE, FACEBOOK, MOBILE NO.) -->
@@ -730,7 +805,7 @@ canvas {
   <div class="panel-card">
     <div class="panel-header">
       <h3>Account Sign In</h3>
-      <button class="close-x" id="closeAuthBtn">✕</button>
+      <button type="button" class="close-x" id="closeAuthBtn">✕</button>
     </div>
     <p id="authCurrentStatus" style="font-size:12px; color:#9effb8; margin-bottom:10px;">
       Guest mode active. Account jodein taaki profile save rahe:
@@ -754,8 +829,9 @@ canvas {
     <div class="phone-box" id="phoneLoginBox" style="display:none;">
       <input type="tel" class="room-input" id="mobileInput" placeholder="10-digit Mobile Number" maxlength="10">
       <div id="otpRow" style="display:none;">
-        <input type="text" class="room-input" id="otpInput" placeholder="Enter 4-digit OTP (e.g. 1234)" maxlength="6">
+        <input type="text" class="room-input" id="otpInput" placeholder="Enter OTP (e.g. 123456)" maxlength="6">
       </div>
+      <div id="recaptcha-container" style="margin-bottom:8px;"></div>
       <button type="button" class="action-btn" id="phoneActionBtn">Send OTP</button>
     </div>
 
@@ -769,7 +845,7 @@ canvas {
   <div class="panel-card">
     <div class="panel-header">
       <h3>Online Match</h3>
-      <button class="close-x" id="closeOnlineBtn">✕</button>
+      <button type="button" class="close-x" id="closeOnlineBtn">✕</button>
     </div>
     <div class="online-badge">
       <span class="dot-live"></span>
@@ -784,9 +860,9 @@ canvas {
       <button type="button" class="chip-btn" data-room="QUEEN99">QUEEN99</button>
     </div>
     <input type="text" class="room-input" id="roomCodeInput" placeholder="Room Code (e.g. CARROM123)" maxlength="12" style="text-transform:uppercase;">
-    <button class="action-btn" id="quickMatchBtn">Join Room (Ad + Match)</button>
-    <button class="secondary-btn" id="randomRoomBtn">Random Quick Match (Ad + Match)</button>
-    <button class="secondary-btn" id="modalBonusAdBtn">Watch Ad for +250 Bonus Coins</button>
+    <button type="button" class="action-btn" id="quickMatchBtn">Join Room (Ad + Match)</button>
+    <button type="button" class="secondary-btn" id="randomRoomBtn">Random Quick Match (Ad + Match)</button>
+    <button type="button" class="secondary-btn" id="modalBonusAdBtn">Watch Ad for +250 Bonus Coins</button>
     <p id="onlineStatusText" style="font-size:12px; color:#ffd97d; margin-top:10px; min-height:24px; line-height:1.35;"></p>
   </div>
 </div>
@@ -815,19 +891,19 @@ canvas {
   <div class="panel-card">
     <div class="panel-header">
       <h3>Settings</h3>
-      <button class="close-x" id="closeSettingsBtn">✕</button>
+      <button type="button" class="close-x" id="closeSettingsBtn">✕</button>
     </div>
     <div class="setting-row">
       <span>Sound Effects</span>
-      <button class="toggle-btn toggle-on" id="toggleSoundBtn">ON</button>
+      <button type="button" class="toggle-btn toggle-on" id="toggleSoundBtn">ON</button>
     </div>
     <div class="setting-row">
       <span>Aim Guide Line</span>
-      <button class="toggle-btn toggle-on" id="toggleAimBtn">ON</button>
+      <button type="button" class="toggle-btn toggle-on" id="toggleAimBtn">ON</button>
     </div>
     <div class="setting-row" style="border-bottom:none;">
       <span>Back to Lobby</span>
-      <button class="toggle-btn toggle-off" id="goHomeBtn">HOME</button>
+      <button type="button" class="toggle-btn toggle-off" id="goHomeBtn">HOME</button>
     </div>
   </div>
 </div>
@@ -837,7 +913,7 @@ canvas {
   <div class="player-cards-row">
     <div class="p-card active" id="cardLeft">
       <div class="avatar-box" id="leftAvatar">P1</div>
-      <div class="p-name" id="leftName">Player 1</div>
+      <div class="p-name" id="leftName">Team AB (P1,P3)</div>
       <div class="p-score-row">
         <span class="mini-puck" style="background:#040404; border:1px solid #3d3d3d;"></span>
         <span id="leftScore">0</span>
@@ -873,7 +949,7 @@ canvas {
 
     <div class="p-card" id="cardRight">
       <div class="avatar-box" id="rightAvatar" style="background:linear-gradient(135deg,#ff7722,#b32400);">P2</div>
-      <div class="p-name" id="rightName">Player 2</div>
+      <div class="p-name" id="rightName">Team CD (P2,P4)</div>
       <div class="p-score-row">
         <span class="mini-puck" style="background:#f3f3f3; border:1px solid #adadad;"></span>
         <span id="rightScore">0</span>
@@ -888,9 +964,13 @@ canvas {
 <div id="winModal">
   <div class="panel-card" style="text-align:center;">
     <h2 id="winnerTitle" style="font-size:24px; color:#ffd97d; margin-bottom:8px;">Match Over!</h2>
-    <p id="finalScoreText" style="font-size:14px; margin-bottom:16px;"></p>
-    <button class="action-btn" id="restartBtn">Play Again</button>
-    <button class="action-btn" id="winHomeBtn" style="background:linear-gradient(180deg,#555,#333); color:#fff;">Back to Menu</button>
+    <div class="king-rank-box" id="kingStandingsBox">
+      <div class="king-1st" id="firstKingLine">1st King: -</div>
+      <div class="king-2nd" id="secondKingLine">2nd King: -</div>
+    </div>
+    <p id="finalScoreText" style="font-size:13.5px; margin-bottom:14px;"></p>
+    <button type="button" class="action-btn" id="restartBtn">Play Again</button>
+    <button type="button" class="action-btn" id="winHomeBtn" style="background:linear-gradient(180deg,#555,#333); color:#fff;">Back to Menu</button>
   </div>
 </div>
 
@@ -900,7 +980,7 @@ canvas {
   <input type="range" id="baselineSlider" min="-2.385" max="2.385" step="0.045" value="0">
 </div>
 
-<button id="cornerMenuBtn" title="Settings">☰</button>
+<button type="button" id="cornerMenuBtn" title="Settings">☰</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -909,8 +989,27 @@ canvas {
 const BOARD_SCALE = 0.9;
 const S = (v) => v * BOARD_SCALE;
 
-// GAME MODES: "offline4p" | "bot" | "online"
-let gameMode = "offline4p";
+// OPTIONAL CONFIGS FOR FIREBASE & ADS
+const FIREBASE_CONFIG = {
+  useRealFirebase: false,
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const MONETIZATION_CONFIG = {
+  useRealAds: false,
+  adSenseClient: "ca-pub-XXXXXXXXXXXXXXXX",
+  admobInterstitialId: "ca-app-pub-XXXXXXXXXXXXXXXX/INTERSTITIAL_ID",
+  admobRewardedId: "ca-app-pub-XXXXXXXXXXXXXXXX/REWARDED_ID"
+};
+
+// GAME MODES: "offline" | "bot" | "online"
+let gameMode = "offline";
+let pendingModeForChoice = "offline";
+let pendingOnlineAction = null; // "join" | "random"
+let playerCount = 4; // 2 or 4
 let activeRoomCode = "";
 let gameActive = false;
 let botTimer = null;
@@ -964,7 +1063,9 @@ function renderAccountUI() {
 
 renderAccountUI();
 
-// 4-PLAYER SIDES ON FIXED BOARD (P1 Bottom, P2 Right, P3 Top, P4 Left)
+// 4-PLAYER SIDES ON FIXED BOARD:
+// 4P Teams: Side A = P1 & P3, Side B = P2 & P4
+// 2P Singles: Side A = P1, Side B = P2
 const PLAYERS = [
   { id: 0, name: "P1", sideLabel: "Neeche", sideClass: "side-bottom", team: "A", axis: "x", fixedVal:  S(3.26), dir:  1 },
   { id: 1, name: "P2", sideLabel: "Right",  sideClass: "side-right",  team: "B", axis: "z", fixedVal:  S(3.26), dir: -1 },
@@ -992,6 +1093,18 @@ slider.min = -sliderMaxSpan;
 slider.max = sliderMaxSpan;
 slider.step = sliderStep;
 
+function getSideALabel() {
+  return playerCount === 4 ? "Team AB (P1,P3)" : "P1";
+}
+
+function getSideBLabel() {
+  return playerCount === 4 ? "Team CD (P2,P4)" : "P2";
+}
+
+function getNextPlayerIndex(fromIdx) {
+  return (fromIdx + 1) % playerCount;
+}
+
 function syncSliderSide(playerIdx) {
   const p = PLAYERS[playerIdx];
   const wasVisible = controlsEl.style.display === "block" || controlsEl.style.display === "flex";
@@ -1007,8 +1120,10 @@ let audioCtx = null;
 
 function initAudio() {
   if (!soundEnabled) return;
-  if (!audioCtx) audioCtx = new AudioCtx();
-  if (audioCtx.state === "suspended") audioCtx.resume();
+  if (!audioCtx && AudioCtx) audioCtx = new AudioCtx();
+  if (audioCtx && audioCtx.state === "suspended") {
+    audioCtx.resume().catch(() => {});
+  }
 }
 
 function playClack(intensity = 0.5) {
@@ -1090,15 +1205,13 @@ function updateHUD() {
   const p = PLAYERS[currentPlayerIndex];
   syncSliderSide(currentPlayerIndex);
 
-  if (gameMode === "offline4p") {
-    document.getElementById("leftName").textContent = "Team AB";
-    document.getElementById("rightName").textContent = "Team CD";
-  } else if (gameMode === "online") {
-    document.getElementById("leftName").textContent = userAccount ? userAccount.shortLabel : "You (P1)";
-    document.getElementById("rightName").textContent = "Opponent";
+  if (gameMode === "online") {
+    const p1Label = userAccount ? userAccount.shortLabel : "You (P1)";
+    document.getElementById("leftName").textContent = playerCount === 4 ? `${p1Label} & P3` : p1Label;
+    document.getElementById("rightName").textContent = playerCount === 4 ? "Opp (P2,P4)" : "Opponent (P2)";
   } else {
-    document.getElementById("leftName").textContent = "Player 1";
-    document.getElementById("rightName").textContent = "Player 2";
+    document.getElementById("leftName").textContent = getSideALabel();
+    document.getElementById("rightName").textContent = getSideBLabel();
   }
 
   document.getElementById("leftScore").textContent = teamAScore;
@@ -1113,16 +1226,17 @@ function updateHUD() {
     queenPill.classList.remove("visible");
   }
 
+  const countTag = `${playerCount}P`;
   const roomTag = gameMode === "online" && activeRoomCode ? `[${activeRoomCode}] ` : "";
   if (queenPendingCover) {
     document.getElementById("modeBanner").textContent =
-      `${roomTag}${p.name} Turn • Pot a coin to cover Queen`;
+      `${roomTag}${countTag} • ${p.name} Turn • Cover Queen`;
   } else if (isBotPlayer(currentPlayerIndex)) {
     document.getElementById("modeBanner").textContent =
-      `${roomTag}${p.name} Bot aiming shot...`;
+      `${roomTag}${countTag} • ${p.name} Bot aiming...`;
   } else {
     document.getElementById("modeBanner").textContent =
-      `${roomTag}${p.name} (${p.sideLabel}) • Pot Red & cover`;
+      `${roomTag}${countTag} • ${p.name} (${p.sideLabel}) • Pot Red & cover`;
   }
 
   document.getElementById("cardLeft").classList.toggle("active", p.team === "A");
@@ -1852,13 +1966,19 @@ slider.addEventListener("input", (e) => {
   e.target.value = applied;
 });
 
-// UI NAVIGATION, ACCOUNT SIGN-IN, ADS & SETTINGS
-function enterGameMode(mode, bannerOverride = null, roomCode = "") {
+// UI NAVIGATION, 2P/4P INSIDE MODES, ACCOUNT SIGN-IN, ADS & SETTINGS
+const modePlayersModal = document.getElementById("modePlayersModal");
+const modeChoiceTitle = document.getElementById("modeChoiceTitle");
+const modeChoiceDesc = document.getElementById("modeChoiceDesc");
+
+function enterGameMode(mode, count, bannerOverride = null, roomCode = "") {
   initAudio();
   gameMode = mode;
+  playerCount = count === 2 ? 2 : 4;
   activeRoomCode = roomCode;
   gameActive = true;
   document.getElementById("homeScreen").style.display = "none";
+  modePlayersModal.style.display = "none";
   document.getElementById("onlineModal").style.display = "none";
   document.getElementById("authModal").style.display = "none";
   document.getElementById("gameHud").style.display = "block";
@@ -1876,6 +1996,7 @@ function returnToHome() {
   clearInterval(adCountdownTimer);
   gameActive = false;
   activeRoomCode = "";
+  pendingOnlineAction = null;
   setAimVisible(false);
   dragging = false;
   activePointer = null;
@@ -1883,11 +2004,34 @@ function returnToHome() {
   document.getElementById("winModal").style.display = "none";
   document.getElementById("settingsModal").style.display = "none";
   document.getElementById("authModal").style.display = "none";
+  modePlayersModal.style.display = "none";
   document.getElementById("gameHud").style.display = "none";
   controlsEl.style.display = "none";
   document.getElementById("cornerMenuBtn").style.display = "none";
   document.getElementById("homeScreen").style.display = "flex";
 }
+
+function openModePlayerChoice(mode) {
+  initAudio();
+  pendingModeForChoice = mode;
+  pendingOnlineAction = null;
+  if (mode === "offline") {
+    modeChoiceTitle.textContent = "Play Offline";
+    modeChoiceDesc.textContent = "Offline Pass & Play ke liye 2P ya 4P chunein:";
+  } else if (mode === "bot") {
+    modeChoiceTitle.textContent = "Play Vs Bot";
+    modeChoiceDesc.textContent = "Bot match ke liye 2P ya 4P chunein:";
+  } else {
+    modeChoiceTitle.textContent = "Play Online";
+    modeChoiceDesc.textContent = "Online match ke liye 2P ya 4P chunein:";
+  }
+  modePlayersModal.style.display = "flex";
+}
+
+document.getElementById("closeModeChoiceBtn").addEventListener("click", () => {
+  modePlayersModal.style.display = "none";
+  pendingOnlineAction = null;
+});
 
 // AD MODAL CONTROLLER (ONLINE MATCH AD & REWARDED BONUS AD)
 const adOverlayEl = document.getElementById("adOverlayModal");
@@ -1897,7 +2041,7 @@ const adHeadline = document.getElementById("adHeadline");
 const adBodyText = document.getElementById("adBodyText");
 const adActionBtn = document.getElementById("adActionBtn");
 
-function openAdModal({ type, seconds = 4, onComplete }) {
+function openAdModal({ type, seconds = 3, onComplete }) {
   clearInterval(adCountdownTimer);
   let remaining = seconds;
 
@@ -2038,22 +2182,76 @@ document.getElementById("signOutBtn").addEventListener("click", () => {
   phoneLoginBox.style.display = "none";
   otpRow.style.display = "none";
   otpSentForPhone = "";
+  phoneActionBtn.textContent = "Send OTP";
   authMessage.style.color = "#ffd97d";
   authMessage.textContent = "Signed out to Guest mode.";
 });
 
-document.getElementById("startOfflineBtn").addEventListener("click", () => {
-  enterGameMode("offline4p");
-});
-
-document.getElementById("startBotBtn").addEventListener("click", () => {
-  enterGameMode("bot");
-});
-
+// MODE TRIGGERS & 2P/4P SELECTION INSIDE EACH MODE
 const roomInputEl = document.getElementById("roomCodeInput");
 const quickMatchBtn = document.getElementById("quickMatchBtn");
 const randomRoomBtn = document.getElementById("randomRoomBtn");
 const onlineStatusEl = document.getElementById("onlineStatusText");
+
+function launchChosenPlayerCount(chosenCount) {
+  playerCount = chosenCount === 2 ? 2 : 4;
+  modePlayersModal.style.display = "none";
+
+  if (pendingModeForChoice === "offline") {
+    enterGameMode("offline", playerCount);
+  } else if (pendingModeForChoice === "bot") {
+    enterGameMode("bot", playerCount);
+  } else if (pendingModeForChoice === "online") {
+    const isRandom = pendingOnlineAction === "random";
+    const rawCode = roomInputEl.value;
+    const cleaned = (rawCode || "").replace(/[^A-Z0-9]/gi, "").toUpperCase().slice(0, 12);
+    if (!isRandom && cleaned.length < 3) {
+      onlineStatusEl.style.color = "#ff7766";
+      onlineStatusEl.textContent = "Kam se kam 3 characters ka room code daalein.";
+      return;
+    }
+    const code = isRandom
+      ? "ROOM" + String(Math.floor(1000 + Math.random() * 9000))
+      : cleaned;
+
+    localStorage.setItem("i4pc_last_room", code);
+    quickMatchBtn.disabled = true;
+    randomRoomBtn.disabled = true;
+    onlineStatusEl.style.color = "#ffd97d";
+    onlineStatusEl.textContent = `Room ${code} (${playerCount}P) ready... Showing match ad`;
+
+    openAdModal({
+      type: "online",
+      seconds: 3,
+      onComplete: () => {
+        quickMatchBtn.disabled = false;
+        randomRoomBtn.disabled = false;
+        enterGameMode(
+          "online",
+          playerCount,
+          `[${code}] ${playerCount}P Online • Pot Red & cover`,
+          code
+        );
+      }
+    });
+  }
+}
+
+document.getElementById("choose2PlayersBtn").addEventListener("click", () => {
+  launchChosenPlayerCount(2);
+});
+
+document.getElementById("choose4PlayersBtn").addEventListener("click", () => {
+  launchChosenPlayerCount(4);
+});
+
+document.getElementById("startOfflineBtn").addEventListener("click", () => {
+  openModePlayerChoice("offline");
+});
+
+document.getElementById("startBotBtn").addEventListener("click", () => {
+  openModePlayerChoice("bot");
+});
 
 document.getElementById("openOnlineBtn").addEventListener("click", () => {
   initAudio();
@@ -2067,8 +2265,8 @@ document.getElementById("openOnlineBtn").addEventListener("click", () => {
   }
   onlineStatusEl.style.color = "#ffd97d";
   onlineStatusEl.textContent = savedRoom
-    ? `Last room: ${savedRoom} — Online match mein ad ke baad entry hogi`
-    : "Room code daalein ya Quick Match chunein (ad ke baad match start).";
+    ? `Last room: ${savedRoom} — Tap Join/Random to pick 2P or 4P`
+    : "Room code daalein ya Quick Match chunein (2P ya 4P chunne ke baad ad).";
   document.getElementById("onlineModal").style.display = "flex";
 });
 
@@ -2087,44 +2285,26 @@ document.getElementById("closeOnlineBtn").addEventListener("click", () => {
   document.getElementById("onlineModal").style.display = "none";
 });
 
-function startOnlineSession(rawCode, isRandom = false) {
-  const cleaned = (rawCode || "").replace(/[^A-Z0-9]/gi, "").toUpperCase().slice(0, 12);
-  if (!isRandom && cleaned.length < 3) {
+quickMatchBtn.addEventListener("click", () => {
+  const cleaned = (roomInputEl.value || "").replace(/[^A-Z0-9]/gi, "").toUpperCase().slice(0, 12);
+  if (cleaned.length < 3) {
     onlineStatusEl.style.color = "#ff7766";
     onlineStatusEl.textContent = "Kam se kam 3 characters ka room code daalein.";
     return;
   }
-  const code = isRandom
-    ? "ROOM" + String(Math.floor(1000 + Math.random() * 9000))
-    : cleaned;
-
-  localStorage.setItem("i4pc_last_room", code);
-  quickMatchBtn.disabled = true;
-  randomRoomBtn.disabled = true;
-  onlineStatusEl.style.color = "#ffd97d";
-  onlineStatusEl.textContent = `Room ${code} ready... Showing match ad`;
-
-  openAdModal({
-    type: "online",
-    seconds: 3,
-    onComplete: () => {
-      quickMatchBtn.disabled = false;
-      randomRoomBtn.disabled = false;
-      enterGameMode(
-        "online",
-        `[${code}] Online • Pot the Red then cover it`,
-        code
-      );
-    }
-  });
-}
-
-quickMatchBtn.addEventListener("click", () => {
-  startOnlineSession(roomInputEl.value, false);
+  pendingModeForChoice = "online";
+  pendingOnlineAction = "join";
+  modeChoiceTitle.textContent = `Online Room: ${cleaned}`;
+  modeChoiceDesc.textContent = "Is online room mein 2P ya 4P match khelein:";
+  modePlayersModal.style.display = "flex";
 });
 
 randomRoomBtn.addEventListener("click", () => {
-  startOnlineSession("", true);
+  pendingModeForChoice = "online";
+  pendingOnlineAction = "random";
+  modeChoiceTitle.textContent = "Random Online Match";
+  modeChoiceDesc.textContent = "Random match ke liye 2P ya 4P chunein:";
+  modePlayersModal.style.display = "flex";
 });
 
 document.getElementById("openSettingsHome").addEventListener("click", () => {
@@ -2292,6 +2472,35 @@ function addTeamPoints(team, pts) {
   }
 }
 
+function showMatchWinnerModal() {
+  walletCoins += Math.max(teamAScore, teamBScore) * 5;
+  saveWalletCoins();
+
+  const sideAName = getSideALabel();
+  const sideBName = getSideBLabel();
+  const firstKingEl = document.getElementById("firstKingLine");
+  const secondKingEl = document.getElementById("secondKingLine");
+  const winnerTitleEl = document.getElementById("winnerTitle");
+  const finalScoreEl = document.getElementById("finalScoreText");
+
+  if (teamAScore > teamBScore) {
+    winnerTitleEl.textContent = `${sideAName} Wins!`;
+    firstKingEl.textContent = `1st King: ${sideAName} (${teamAScore} PTS)`;
+    secondKingEl.textContent = `2nd King: ${sideBName} (${teamBScore} PTS)`;
+  } else if (teamBScore > teamAScore) {
+    winnerTitleEl.textContent = `${sideBName} Wins!`;
+    firstKingEl.textContent = `1st King: ${sideBName} (${teamBScore} PTS)`;
+    secondKingEl.textContent = `2nd King: ${sideAName} (${teamAScore} PTS)`;
+  } else {
+    winnerTitleEl.textContent = "Match Tied!";
+    firstKingEl.textContent = `1st King (Tie): ${sideAName} & ${sideBName}`;
+    secondKingEl.textContent = `2nd King: Both Tied at ${teamAScore} PTS`;
+  }
+
+  finalScoreEl.textContent = `${sideAName}: ${teamAScore} PTS  |  ${sideBName}: ${teamBScore} PTS`;
+  document.getElementById("winModal").style.display = "flex";
+}
+
 function updatePhysics() {
   if (!gameActive || strikerReady || dragging) return;
 
@@ -2452,26 +2661,14 @@ function checkTurnEnd() {
     );
 
     if (!coinsRemaining) {
-      walletCoins += Math.max(teamAScore, teamBScore) * 5;
-      saveWalletCoins();
-
-      const winText =
-        teamAScore > teamBScore
-          ? "Team AB Wins!"
-          : teamBScore > teamAScore
-          ? "Team CD Wins!"
-          : "Match Tied!";
-      document.getElementById("winnerTitle").textContent = winText;
-      document.getElementById("finalScoreText").textContent =
-        `Team AB: ${teamAScore} PTS  |  Team CD: ${teamBScore} PTS`;
-      document.getElementById("winModal").style.display = "flex";
+      showMatchWinnerModal();
       strikerReady = true;
       return;
     }
 
     const keepTurn = pocketedThisTurn > 0 && !foulThisTurn;
     if (!keepTurn) {
-      currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+      currentPlayerIndex = getNextPlayerIndex(currentPlayerIndex);
       const nextP = PLAYERS[currentPlayerIndex];
       showToast(`${nextP.name} (${nextP.sideLabel}) Turn`, "#ffe0a0");
     } else {
@@ -2510,4 +2707,3 @@ window.addEventListener("resize", () => {
 </script>
 </body>
 </html>
- 
