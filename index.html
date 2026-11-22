@@ -182,7 +182,7 @@ canvas {
   text-align: center;
 }
 
-/* MODALS & AD OVERLAY */
+/* MODALS & BREAK OVERLAY */
 #modePlayersModal, #onlineModal, #settingsModal, #winModal, #authModal, #adOverlayModal {
   display: none;
   position: fixed;
@@ -765,7 +765,7 @@ canvas {
 
     <button type="button" class="mode-btn btn-online" id="openOnlineBtn">
       <span>Play Online</span>
-      <span class="mode-tag">2P / 4P + ADS</span>
+      <span class="mode-tag">2P / 4P</span>
     </button>
   </div>
 
@@ -860,29 +860,29 @@ canvas {
       <button type="button" class="chip-btn" data-room="QUEEN99">QUEEN99</button>
     </div>
     <input type="text" class="room-input" id="roomCodeInput" placeholder="Room Code (e.g. CARROM123)" maxlength="12" style="text-transform:uppercase;">
-    <button type="button" class="action-btn" id="quickMatchBtn">Join Room (Ad + Match)</button>
-    <button type="button" class="secondary-btn" id="randomRoomBtn">Random Quick Match (Ad + Match)</button>
+    <button type="button" class="action-btn" id="quickMatchBtn">Join Room</button>
+    <button type="button" class="secondary-btn" id="randomRoomBtn">Random Quick Match</button>
     <button type="button" class="secondary-btn" id="modalBonusAdBtn">Watch Ad for +250 Bonus Coins</button>
     <p id="onlineStatusText" style="font-size:12px; color:#ffd97d; margin-top:10px; min-height:24px; line-height:1.35;"></p>
   </div>
 </div>
 
-<!-- AD BREAK / REWARDED BONUS MODAL -->
+<!-- BREAK / REWARDED BONUS MODAL -->
 <div id="adOverlayModal">
   <div class="ad-card">
     <div class="ad-top-row">
-      <span id="adPlacementLabel">SPONSORED AD</span>
-      <span id="adTimerLabel">5s</span>
+      <span id="adPlacementLabel">MATCH BREAK</span>
+      <span id="adTimerLabel">3s</span>
     </div>
     <div class="ad-banner-box">
       <div style="font-size:16px; font-weight:900; color:#ffd97d; margin-bottom:6px;" id="adHeadline">
-        Indian 4 Player Carrom Sponsor
+        Indian 4 Player Carrom
       </div>
       <p style="font-size:12px; color:#d7e5ff; line-height:1.4;" id="adBodyText">
-        Online match aur bonus rewards ke liye ad slot ready hai. Live domain / app build mein yahan real AdSense ya AdMob unit attach karein.
+        Room aur reward taiyar ho raha hai...
       </p>
     </div>
-    <button type="button" class="action-btn" id="adActionBtn" disabled>Please wait 5s...</button>
+    <button type="button" class="action-btn" id="adActionBtn" disabled>Please wait 3s...</button>
   </div>
 </div>
 
@@ -989,7 +989,7 @@ canvas {
 const BOARD_SCALE = 0.9;
 const S = (v) => v * BOARD_SCALE;
 
-// OPTIONAL CONFIGS FOR FIREBASE & ADS
+// OPTIONAL CONFIGS FOR FIREBASE & MONETIZATION
 const FIREBASE_CONFIG = {
   useRealFirebase: false,
   apiKey: "YOUR_FIREBASE_API_KEY",
@@ -1966,7 +1966,7 @@ slider.addEventListener("input", (e) => {
   e.target.value = applied;
 });
 
-// UI NAVIGATION, 2P/4P INSIDE MODES, ACCOUNT SIGN-IN, ADS & SETTINGS
+// UI NAVIGATION, 2P/4P INSIDE MODES, ACCOUNT SIGN-IN, REWARDS & SETTINGS
 const modePlayersModal = document.getElementById("modePlayersModal");
 const modeChoiceTitle = document.getElementById("modeChoiceTitle");
 const modeChoiceDesc = document.getElementById("modeChoiceDesc");
@@ -2033,7 +2033,7 @@ document.getElementById("closeModeChoiceBtn").addEventListener("click", () => {
   pendingOnlineAction = null;
 });
 
-// AD MODAL CONTROLLER (ONLINE MATCH AD & REWARDED BONUS AD)
+// MATCH PREP / REWARDED BONUS MODAL CONTROLLER
 const adOverlayEl = document.getElementById("adOverlayModal");
 const adPlacementLabel = document.getElementById("adPlacementLabel");
 const adTimerLabel = document.getElementById("adTimerLabel");
@@ -2046,13 +2046,13 @@ function openAdModal({ type, seconds = 3, onComplete }) {
   let remaining = seconds;
 
   if (type === "bonus") {
-    adPlacementLabel.textContent = "REWARDED BONUS AD";
-    adHeadline.textContent = "Earn +250 Bonus Coins";
-    adBodyText.textContent = "Ad poora dekhein aur turant apne wallet mein +250 coins paayein.";
+    adPlacementLabel.textContent = "BONUS COINS";
+    adHeadline.textContent = "Claim +250 Bonus Coins";
+    adBodyText.textContent = "Thodi der mein aapke wallet mein +250 coins add ho jayenge.";
   } else {
-    adPlacementLabel.textContent = "ONLINE MATCH AD";
+    adPlacementLabel.textContent = "ONLINE ROOM";
     adHeadline.textContent = "Preparing Online Room...";
-    adBodyText.textContent = "Online match shuru hone se pehle sponsor ad chal raha hai.";
+    adBodyText.textContent = "Online match room connect ho raha hai...";
   }
 
   adTimerLabel.textContent = `${remaining}s`;
@@ -2218,7 +2218,7 @@ function launchChosenPlayerCount(chosenCount) {
     quickMatchBtn.disabled = true;
     randomRoomBtn.disabled = true;
     onlineStatusEl.style.color = "#ffd97d";
-    onlineStatusEl.textContent = `Room ${code} (${playerCount}P) ready... Showing match ad`;
+    onlineStatusEl.textContent = `Room ${code} (${playerCount}P) connect ho raha hai...`;
 
     openAdModal({
       type: "online",
@@ -2266,7 +2266,7 @@ document.getElementById("openOnlineBtn").addEventListener("click", () => {
   onlineStatusEl.style.color = "#ffd97d";
   onlineStatusEl.textContent = savedRoom
     ? `Last room: ${savedRoom} — Tap Join/Random to pick 2P or 4P`
-    : "Room code daalein ya Quick Match chunein (2P ya 4P chunne ke baad ad).";
+    : "Room code daalein ya Quick Match chunein (2P ya 4P select karein).";
   document.getElementById("onlineModal").style.display = "flex";
 });
 
