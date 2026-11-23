@@ -987,25 +987,25 @@ canvas {
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
-
 <script>
 // BOARD SCALE: 10% smaller than original (0.9x)
 const BOARD_SCALE = 0.9;
 const S = (v) => v * BOARD_SCALE;
 
 // FIREBASE CONFIG FOR "indian-4-player-carrom"
-// Replace apiKey, authDomain, and appId from Firebase Console > Project settings > Your apps
+// Replace apiKey, authDomain, projectId, and appId from Firebase Console > Project settings > Your apps
 const FIREBASE_CONFIG = {
   useRealFirebase: true,
-  apiKey: "AIzaSyBwNefnbpu7OrqwlvJXuq0moMmiuPo4JZ4",
+  apiKey: "YOUR_FIREBASE_API_KEY",
   authDomain: "indian-4-player-carrom.firebaseapp.com",
+  databaseURL: "https://indian-4-player-carrom-default-rtdb.firebaseio.com/",
   projectId: "indian-4-player-carrom",
-  appId: "1:745007421143:web:5a5fc4fd7d98fa4fad0292"
+  appId: "YOUR_FIREBASE_APP_ID"
 };
 
 let firebaseAuth = null;
 let firebaseDb = null;
-  
+
 function hasValidFirebaseKeys() {
   return (
     typeof firebase !== "undefined" &&
@@ -1025,7 +1025,6 @@ if (FIREBASE_CONFIG.useRealFirebase && hasValidFirebaseKeys()) {
     firebaseDb = firebase.database();
   }
 }
-
 
 const MONETIZATION_CONFIG = {
   useRealAds: false,
@@ -1086,9 +1085,6 @@ function saveUserAccount(acc) {
   renderAccountUI();
 }
 
-  renderAccountUI();
-}
-
 function renderAccountUI() {
   const authBtn = document.getElementById("openAuthBtn");
   const statusEl = document.getElementById("authCurrentStatus");
@@ -1139,7 +1135,6 @@ if (firebaseAuth) {
     }
   });
 }
-
 
 // 4-PLAYER SIDES ON FIXED BOARD:
 // 4P Teams: Side A = P1 & P3, Side B = P2 & P4
