@@ -2114,8 +2114,19 @@ const adHeadline = document.getElementById("adHeadline");
 const adBodyText = document.getElementById("adBodyText");
 const adActionBtn = document.getElementById("adActionBtn");
 
+let adCompleteCallback = null;
+
+adActionBtn.addEventListener("click", () => {
+  if (adActionBtn.disabled) return;
+  adOverlayEl.style.display = "none";
+  const cb = adCompleteCallback;
+  adCompleteCallback = null;
+  if (typeof cb === "function") cb();
+});
+
 function openAdModal({ type, seconds = 3, onComplete }) {
   clearInterval(adCountdownTimer);
+  adCompleteCallback = onComplete || null;
   let remaining = seconds;
 
   if (type === "bonus") {
@@ -2143,10 +2154,6 @@ function openAdModal({ type, seconds = 3, onComplete }) {
       adTimerLabel.textContent = "READY";
       adActionBtn.disabled = false;
       adActionBtn.textContent = type === "bonus" ? "Claim +250 Coins" : "Enter Online Match";
-      adActionBtn.onclick = () => {
-        adOverlayEl.style.display = "none";
-        if (typeof onComplete === "function") onComplete();
-      };
     }
   }, 1000);
 }
