@@ -2704,3 +2704,113 @@ function updatePhysics() {
       let distance = Math.hypot(dx, dz);
       const minDistance = a.radius + b.radius;
 
+      if (distance < minDistance) {
+        if (distance < 0.001) distance = 0.001;
+
+        const nx = dx / distance;
+        const nz = dz / distance;
+        const overlap = minDistance - distance;
+
+        a.x -= (nx * overlap) / 2;
+        a.z -= (nz * overlap) / 2;
+        b.x += (nx * overlap) / 2;
+        b.z += (nz * overlap) / 2;
+
+        const relative = (a.vx - b.vx) * nx + (a.vz - b.vz) * nz;
+
+        if (relative > 0) {
+          if (relative > S(0.35)) {
+            playClack(relative / S(16));
+          }
+          const impulse = relative * 0.95;
+          a.vx -= impulse * nx;
+          a.vz -= impulse * nz;
+          b.vx += impulse * nx;
+          b.vz += impulse * nz;
+        }
+
+        a.mesh.position.set(a.x, 0.23, a.z);
+        b.mesh.position.set(b.x, 0.23, b.z);
+      }
+    }
+  }
+}
+
+function checkTurnEnd() {
+  if (!gameActive || strikerReady || dragging) return;
+
+  const anyMoving =
+    droppingCoins.length > 0 ||
+    objects.some((o) => o.active && Math.hypot(o.vx, o.vz) > S(0.03));
+
+  if (!anyMoving) {
+    const activeTeam = PLAYERS[currentPlayerIndex].team;
+    const curP = PLAYERS[currentPlayerIndex];
+
+    if (queenPendingCover) {
+      const nonQueenPocketed = queenPocketedThisTurn
+        ? pocketedThisTurn - 1
+        : pocketedThisTurn;
+
+      if (!foulThisTurn && nonQueenPocketed > 0) {
+        queenPendingCover = false;
+        addTeamPoints(activeTeam, 50);
+        showToast(`${curP.name} Covered Queen! +50 PTS`, "#66ff99");
+      } else if (!queenPocketedThisTurn || foulThisTurn) {
+        queenPendingCover = false;
+        returnQueenToCenter();
+        showToast("Queen Not Covered • Returned to Center", "#ff7766");
+      }
+    }
+
+    const coinsRemaining = objects.some(
+      (o) => o.type !== "striker" && o.active
+    );
+
+    if (!coinsRemaining) {
+      showMatchWinnerModal();
+      strikerReady = true;
+      return;
+    }
+
+    const keepTurn = pocketedThisTurn > 0 && !foulThisTurn;
+    if (!keepTurn) {
+      currentPlayerIndex = getNextPlayerIndex(currentPlayerIndex);
+      const nextP = PLAYERS[currentPlayerIndex];
+      showToast(`${nextP.name} (${nextP.sideLabel}) Turn`, "#ffe0a0");
+    } else {
+      showToast(`${curP.name} Bonus Turn!`, "#66ff99");
+    }
+
+    const nextSlider = positionStrikerOnBaseline(currentPlayerIndex, 0);
+    slider.value = nextSlider;
+    slider.disabled = isBotPlayer(currentPlayerIndex);
+    strikerReady = true;
+    updateHUD();
+    scheduleBotTurnIfNeeded();
+  }
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  if (strikerGlow.visible) {
+    const pulse = 1 + Math.sin(performance.now() * 0.006) * 0.06;
+    strikerGlow.scale.set(pulse, pulse, 1);
+  }
+  updatePhysics();
+  updatePocketDrops();
+  checkTurnEnd();
+  renderer.render(scene, camera);
+}
+
+animate();
+
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  fitFixedCamera();
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>
