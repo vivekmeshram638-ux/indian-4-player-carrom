@@ -985,6 +985,8 @@ canvas {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
 
 <script>
 // BOARD SCALE: 10% smaller than original (0.9x)
@@ -1002,6 +1004,8 @@ const FIREBASE_CONFIG = {
 };
 
 let firebaseAuth = null;
+let firebaseDb = null;
+  
 function hasValidFirebaseKeys() {
   return (
     typeof firebase !== "undefined" &&
@@ -1017,7 +1021,11 @@ if (FIREBASE_CONFIG.useRealFirebase && hasValidFirebaseKeys()) {
     firebase.initializeApp(FIREBASE_CONFIG);
   }
   firebaseAuth = firebase.auth();
+  if (typeof firebase.database === "function") {
+    firebaseDb = firebase.database();
+  }
 }
+
 
 const MONETIZATION_CONFIG = {
   useRealAds: false,
@@ -1046,18 +1054,38 @@ let userAccount = JSON.parse(localStorage.getItem("i4pc_account") || "null");
 const walletCoinsEl = document.getElementById("walletCoins");
 walletCoinsEl.textContent = walletCoins;
 
+async function syncUserProfileToDb(acc, coinsToSave) {
+  if (!firebaseDb || !acc || !acc.uid) return;
+  try {
+    await firebaseDb.ref(`users/${acc.uid}`).update({
+      provider: acc.provider || "Google",
+      shortLabel: acc.shortLabel || "Player",
+      identifier: acc.identifier || "",
+      coins: Number(coinsToSave),
+      updatedAt: Date.now()
+    });
+  } catch (_) {}
+}
+
 function saveWalletCoins() {
   localStorage.setItem("i4pc_coins", String(walletCoins));
   walletCoinsEl.textContent = walletCoins;
+  if (userAccount && userAccount.uid) {
+    syncUserProfileToDb(userAccount, walletCoins);
+  }
 }
 
 function saveUserAccount(acc) {
   userAccount = acc;
   if (acc) {
     localStorage.setItem("i4pc_account", JSON.stringify(acc));
+    syncUserProfileToDb(acc, walletCoins);
   } else {
     localStorage.removeItem("i4pc_account");
   }
+  renderAccountUI();
+}
+
   renderAccountUI();
 }
 
@@ -1085,9 +1113,23 @@ function renderAccountUI() {
 renderAccountUI();
 
 if (firebaseAuth) {
-  firebaseAuth.onAuthStateChanged((fbUser) => {
+  firebaseAuth.onAuthStateChanged(async (fbUser) => {
     if (fbUser && fbUser.email) {
       const firstName = (fbUser.displayName || fbUser.email.split("@")[0] || "Google User").split(" ")[0];
+      let cloudCoins = walletCoins;
+
+      if (firebaseDb) {
+        try {
+          const snap = await firebaseDb.ref(`users/${fbUser.uid}/coins`).get();
+          if (snap.exists() && typeof snap.val() === "number") {
+            cloudCoins = snap.val();
+            walletCoins = cloudCoins;
+            localStorage.setItem("i4pc_coins", String(walletCoins));
+            walletCoinsEl.textContent = walletCoins;
+          }
+        } catch (_) {}
+      }
+
       saveUserAccount({
         provider: "Google",
         shortLabel: firstName,
@@ -1097,6 +1139,7 @@ if (firebaseAuth) {
     }
   });
 }
+
 
 // 4-PLAYER SIDES ON FIXED BOARD:
 // 4P Teams: Side A = P1 & P3, Side B = P2 & P4
@@ -2661,113 +2704,3 @@ function updatePhysics() {
       let distance = Math.hypot(dx, dz);
       const minDistance = a.radius + b.radius;
 
-      if (distance < minDistance) {
-        if (distance < 0.001) distance = 0.001;
-
-        const nx = dx / distance;
-        const nz = dz / distance;
-        const overlap = minDistance - distance;
-
-        a.x -= (nx * overlap) / 2;
-        a.z -= (nz * overlap) / 2;
-        b.x += (nx * overlap) / 2;
-        b.z += (nz * overlap) / 2;
-
-        const relative = (a.vx - b.vx) * nx + (a.vz - b.vz) * nz;
-
-        if (relative > 0) {
-          if (relative > S(0.35)) {
-            playClack(relative / S(16));
-          }
-          const impulse = relative * 0.95;
-          a.vx -= impulse * nx;
-          a.vz -= impulse * nz;
-          b.vx += impulse * nx;
-          b.vz += impulse * nz;
-        }
-
-        a.mesh.position.set(a.x, 0.23, a.z);
-        b.mesh.position.set(b.x, 0.23, b.z);
-      }
-    }
-  }
-}
-
-function checkTurnEnd() {
-  if (!gameActive || strikerReady || dragging) return;
-
-  const anyMoving =
-    droppingCoins.length > 0 ||
-    objects.some((o) => o.active && Math.hypot(o.vx, o.vz) > S(0.03));
-
-  if (!anyMoving) {
-    const activeTeam = PLAYERS[currentPlayerIndex].team;
-    const curP = PLAYERS[currentPlayerIndex];
-
-    if (queenPendingCover) {
-      const nonQueenPocketed = queenPocketedThisTurn
-        ? pocketedThisTurn - 1
-        : pocketedThisTurn;
-
-      if (!foulThisTurn && nonQueenPocketed > 0) {
-        queenPendingCover = false;
-        addTeamPoints(activeTeam, 50);
-        showToast(`${curP.name} Covered Queen! +50 PTS`, "#66ff99");
-      } else if (!queenPocketedThisTurn || foulThisTurn) {
-        queenPendingCover = false;
-        returnQueenToCenter();
-        showToast("Queen Not Covered • Returned to Center", "#ff7766");
-      }
-    }
-
-    const coinsRemaining = objects.some(
-      (o) => o.type !== "striker" && o.active
-    );
-
-    if (!coinsRemaining) {
-      showMatchWinnerModal();
-      strikerReady = true;
-      return;
-    }
-
-    const keepTurn = pocketedThisTurn > 0 && !foulThisTurn;
-    if (!keepTurn) {
-      currentPlayerIndex = getNextPlayerIndex(currentPlayerIndex);
-      const nextP = PLAYERS[currentPlayerIndex];
-      showToast(`${nextP.name} (${nextP.sideLabel}) Turn`, "#ffe0a0");
-    } else {
-      showToast(`${curP.name} Bonus Turn!`, "#66ff99");
-    }
-
-    const nextSlider = positionStrikerOnBaseline(currentPlayerIndex, 0);
-    slider.value = nextSlider;
-    slider.disabled = isBotPlayer(currentPlayerIndex);
-    strikerReady = true;
-    updateHUD();
-    scheduleBotTurnIfNeeded();
-  }
-}
-
-function animate() {
-  requestAnimationFrame(animate);
-  if (strikerGlow.visible) {
-    const pulse = 1 + Math.sin(performance.now() * 0.006) * 0.06;
-    strikerGlow.scale.set(pulse, pulse, 1);
-  }
-  updatePhysics();
-  updatePocketDrops();
-  checkTurnEnd();
-  renderer.render(scene, camera);
-}
-
-animate();
-
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  fitFixedCamera();
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-</script>
-</body>
-</html>
