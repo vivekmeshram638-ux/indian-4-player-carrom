@@ -983,13 +983,16 @@ canvas {
 <button type="button" id="cornerMenuBtn" title="Settings">☰</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
 <script>
 // BOARD SCALE: 10% smaller than original (0.9x)
 const BOARD_SCALE = 0.9;
 const S = (v) => v * BOARD_SCALE;
 
-// OPTIONAL CONFIGS FOR FIREBASE & MONETIZATION
+// FIREBASE CONFIG FOR "indian-4-player-carrom"
+// Replace apiKey, authDomain, and appId from Firebase Console > Project settings > Your apps
 const FIREBASE_CONFIG = {
   useRealFirebase: true,
   apiKey: "AIzaSyBwNefnbpu7OrqwlvJXuq0moMmiuPo4JZ4",
@@ -997,6 +1000,24 @@ const FIREBASE_CONFIG = {
   projectId: "indian-4-player-carrom",
   appId: "1:745007421143:web:5a5fc4fd7d98fa4fad0292"
 };
+
+let firebaseAuth = null;
+function hasValidFirebaseKeys() {
+  return (
+    typeof firebase !== "undefined" &&
+    FIREBASE_CONFIG.apiKey &&
+    !FIREBASE_CONFIG.apiKey.startsWith("YOUR_") &&
+    FIREBASE_CONFIG.appId &&
+    !FIREBASE_CONFIG.appId.startsWith("YOUR_")
+  );
+}
+
+if (FIREBASE_CONFIG.useRealFirebase && hasValidFirebaseKeys()) {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(FIREBASE_CONFIG);
+  }
+  firebaseAuth = firebase.auth();
+}
 
 const MONETIZATION_CONFIG = {
   useRealAds: false,
@@ -1062,6 +1083,20 @@ function renderAccountUI() {
 }
 
 renderAccountUI();
+
+if (firebaseAuth) {
+  firebaseAuth.onAuthStateChanged((fbUser) => {
+    if (fbUser && fbUser.email) {
+      const firstName = (fbUser.displayName || fbUser.email.split("@")[0] || "Google User").split(" ")[0];
+      saveUserAccount({
+        provider: "Google",
+        shortLabel: firstName,
+        identifier: fbUser.email,
+        uid: fbUser.uid
+      });
+    }
+  });
+}
 
 // 4-PLAYER SIDES ON FIXED BOARD:
 // 4P Teams: Side A = P1 & P3, Side B = P2 & P4
@@ -2102,6 +2137,7 @@ const otpRow = document.getElementById("otpRow");
 const otpInput = document.getElementById("otpInput");
 const phoneActionBtn = document.getElementById("phoneActionBtn");
 const authMessage = document.getElementById("authMessage");
+const googleSignInBtn = document.getElementById("googleSignInBtn");
 let otpSentForPhone = "";
 
 document.getElementById("openAuthBtn").addEventListener("click", () => {
@@ -2119,14 +2155,37 @@ document.getElementById("closeAuthBtn").addEventListener("click", () => {
   authModalEl.style.display = "none";
 });
 
-document.getElementById("googleSignInBtn").addEventListener("click", () => {
-  saveUserAccount({
-    provider: "Google",
-    shortLabel: "Google User",
-    identifier: "player.google@gmail.com"
-  });
-  authMessage.style.color = "#66ff99";
-  authMessage.textContent = "Google account connected!";
+googleSignInBtn.addEventListener("click", async () => {
+  authMessage.style.color = "#ffd97d";
+  if (firebaseAuth) {
+    googleSignInBtn.disabled = true;
+    authMessage.textContent = "Google sign-in khul raha hai...";
+    try {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+      const result = await firebaseAuth.signInWithPopup(provider);
+      const user = result.user;
+      const email = user.email || "google.user@gmail.com";
+      const firstName = (user.displayName || email.split("@")[0] || "Google User").split(" ")[0];
+      saveUserAccount({
+        provider: "Google",
+        shortLabel: firstName,
+        identifier: email,
+        uid: user.uid
+      });
+      authMessage.style.color = "#66ff99";
+      authMessage.textContent = `Signed in as ${email}!`;
+    } catch (err) {
+      authMessage.style.color = "#ff7766";
+      authMessage.textContent = err && err.message ? err.message : "Google sign-in fail ho gaya.";
+    } finally {
+      googleSignInBtn.disabled = false;
+    }
+    return;
+  }
+
+  authMessage.style.color = "#ff7766";
+  authMessage.textContent = "Firebase apiKey & appId FIREBASE_CONFIG mein daalein.";
 });
 
 document.getElementById("fbSignInBtn").addEventListener("click", () => {
@@ -2177,7 +2236,12 @@ phoneActionBtn.addEventListener("click", () => {
   authMessage.textContent = "Mobile number verified & signed in!";
 });
 
-document.getElementById("signOutBtn").addEventListener("click", () => {
+document.getElementById("signOutBtn").addEventListener("click", async () => {
+  if (firebaseAuth && firebaseAuth.currentUser) {
+    try {
+      await firebaseAuth.signOut();
+    } catch (_) {}
+  }
   saveUserAccount(null);
   phoneLoginBox.style.display = "none";
   otpRow.style.display = "none";
