@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -183,7 +183,7 @@ canvas {
 }
 
 /* MODALS & BREAK OVERLAY */
-#modePlayersModal, #onlineModal, #settingsModal, #winModal, #authModal, #adOverlayModal {
+#selectModeModal, #modePlayersModal, #onlineModal, #settingsModal, #winModal, #authModal, #adOverlayModal {
   display: none;
   position: fixed;
   inset: 0;
@@ -207,6 +207,103 @@ canvas {
   padding: 20px;
   box-shadow: 0 12px 28px rgba(0,0,0,0.7);
   color: #fff3dc;
+}
+
+.select-mode-card {
+  width: 100%;
+  max-width: 356px;
+  background: linear-gradient(180deg, #9c4714, #702e08);
+  border: 2.5px solid #e59945;
+  border-radius: 16px;
+  padding: 12px 14px 16px;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.78);
+  color: #fff5e4;
+}
+
+.mode-tile {
+  width: 100%;
+  height: 76px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 240, 200, 0.45);
+  margin-bottom: 11px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 4px 0 rgba(0, 0, 0, 0.35);
+}
+
+.mode-tile:last-child {
+  margin-bottom: 0;
+}
+
+.tile-disc {
+  background: linear-gradient(180deg, #1d7fe0, #0d4b96);
+}
+
+.tile-free-disc {
+  background: linear-gradient(180deg, #eb6c13, #a83c00);
+}
+
+.tile-carrom {
+  background: linear-gradient(180deg, #24a83b, #11661f);
+}
+
+.tile-free-carrom {
+  background: linear-gradient(180deg, #1b7fd9, #0c488a);
+}
+
+.tile-label {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  text-align: left;
+  line-height: 1.2;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.45);
+}
+
+.mini-board-art {
+  width: 68px;
+  height: 46px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #e7bc82, #be8947);
+  border: 3px solid #692e0d;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+.piece-dot {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+}
+
+.tag-8 {
+  position: absolute;
+  left: 6px;
+  bottom: 5px;
+  background: #149c46;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.tag-2 {
+  position: absolute;
+  right: 6px;
+  top: 5px;
+  background: #d92626;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 1px 4px;
+  border-radius: 3px;
 }
 
 .panel-header {
@@ -430,7 +527,7 @@ canvas {
   border: 1px solid rgba(255, 217, 125, 0.35);
   border-radius: 12px;
   padding: 10px 12px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   text-align: left;
   font-size: 13px;
   line-height: 1.55;
@@ -444,6 +541,18 @@ canvas {
 .king-2nd {
   color: #d7e5ff;
   font-weight: 800;
+}
+
+.sportsmanship-box {
+  background: rgba(255, 204, 34, 0.12);
+  border: 1px solid rgba(255, 224, 160, 0.35);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #ffe8c2;
+  font-weight: 700;
 }
 
 /* IN-GAME TOP HUD */
@@ -467,7 +576,7 @@ canvas {
 }
 
 .p-card {
-  width: 92px;
+  width: 112px;
   background: rgba(54, 14, 7, 0.72);
   border: 1.5px solid rgba(255, 195, 105, 0.35);
   border-radius: 12px;
@@ -476,12 +585,83 @@ canvas {
   flex-direction: column;
   align-items: center;
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .p-card.active {
   border-color: #ffcc22;
   box-shadow: 0 0 12px rgba(255, 190, 30, 0.75);
   background: rgba(85, 22, 10, 0.88);
+}
+
+.result-tag {
+  display: none;
+  margin-bottom: 4px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.result-tag.winner {
+  display: inline-block;
+  background: linear-gradient(180deg, #ffd84d, #e08200);
+  color: #2b1102;
+  border: 1px solid #fff3b8;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+.result-tag.blessing {
+  display: inline-block;
+  background: rgba(34, 24, 16, 0.94);
+  color: #ffe8b8;
+  border: 1px solid rgba(255, 217, 125, 0.55);
+}
+
+/* CENTER WINNER RIBBON & BLESSING BANNER (TOUCH TO DISMISS) */
+#winnerBannerOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 22;
+  pointer-events: auto;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 18px;
+}
+
+.winner-ribbon-box {
+  width: 100%;
+  max-width: 390px;
+  padding: 11px 16px;
+  background: linear-gradient(90deg, rgba(20, 4, 2, 0.15), rgba(145, 24, 8, 0.94) 22%, rgba(185, 32, 10, 0.96) 50%, rgba(145, 24, 8, 0.94) 78%, rgba(20, 4, 2, 0.15));
+  border-top: 2px solid #ffcc22;
+  border-bottom: 2px solid #ffcc22;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #fff6dc;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+}
+
+.blessing-pill-box {
+  background: rgba(24, 8, 4, 0.92);
+  border: 1.5px solid #ffd97d;
+  border-radius: 12px;
+  padding: 7px 14px;
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #ffe8b8;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.65);
 }
 
 .avatar-box {
@@ -500,7 +680,7 @@ canvas {
 }
 
 .p-name {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #fff0d4;
   text-align: center;
@@ -509,89 +689,25 @@ canvas {
 .p-score-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  margin-top: 2px;
-  font-size: 16px;
+  margin-top: 4px;
   font-weight: 800;
   color: #fff;
 }
 
+.goti-count-num {
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff8e6;
+}
+
 .mini-puck {
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   display: inline-block;
-}
-
-.center-stack {
-  flex: 1;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-}
-
-.center-banner {
-  width: 100%;
-  background: rgba(44, 12, 6, 0.82);
-  border: 1px solid rgba(255, 196, 110, 0.3);
-  border-radius: 10px;
-  padding: 7px 8px;
-  text-align: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: #ffe8c2;
-  line-height: 1.25;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.45);
-}
-
-.queen-status-pill {
-  display: none;
-  align-items: center;
-  gap: 5px;
-  background: rgba(135, 14, 26, 0.92);
-  border: 1px solid #ff8899;
-  border-radius: 999px;
-  padding: 3px 9px;
-  font-size: 10px;
-  font-weight: 800;
-  color: #ffd6dc;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-.queen-status-pill.visible {
-  display: inline-flex;
-}
-
-.points-legend {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 6px;
-  background: rgba(24, 6, 3, 0.82);
-  border: 1px solid rgba(255, 210, 130, 0.35);
-  border-radius: 999px;
-  padding: 4px 9px;
-  font-size: 10px;
-  font-weight: 800;
-  color: #fff3d6;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.45);
-}
-
-.legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  white-space: nowrap;
-}
-
-.legend-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  display: inline-block;
+  flex-shrink: 0;
 }
 
 #toast {
@@ -777,6 +893,53 @@ canvas {
   <div class="lobby-footer">Indian 4 Player Carrom • 1st & 2nd King Ready</div>
 </div>
 
+<!-- SELECT MODE POPUP (MATCHING FIRST PIC STYLE) -->
+<div id="selectModeModal">
+  <div class="select-mode-card">
+    <div class="panel-header">
+      <h3 id="selectModeHeading">Select Mode</h3>
+      <button type="button" class="close-x" id="closeSelectModeBtn">✕</button>
+    </div>
+
+    <button type="button" class="mode-tile tile-disc" data-submode="Disc Pool">
+      <div class="mini-board-art">
+        <span class="piece-dot" style="background:#e04836; top:5px; left:12px;"></span>
+        <span class="piece-dot" style="background:#38c948; bottom:6px; right:14px;"></span>
+      </div>
+      <span class="tile-label">Disc Pool</span>
+    </button>
+
+    <button type="button" class="mode-tile tile-free-disc" data-submode="Freestyle Disc Pool">
+      <span class="tile-label">Freestyle<br>Disc Pool</span>
+      <div class="mini-board-art">
+        <span class="tag-8">8</span>
+        <span class="tag-2">2</span>
+        <span class="piece-dot" style="background:#f5f5f5; top:14px; left:24px;"></span>
+        <span class="piece-dot" style="background:#333; bottom:8px; right:12px;"></span>
+      </div>
+    </button>
+
+    <button type="button" class="mode-tile tile-carrom" data-submode="Carrom">
+      <div class="mini-board-art">
+        <span class="piece-dot" style="background:#9a52e8; top:5px; left:14px;"></span>
+        <span class="piece-dot" style="background:#ffa726; bottom:6px; left:16px;"></span>
+        <span class="piece-dot" style="background:#2b2b2b; top:16px; right:14px;"></span>
+      </div>
+      <span class="tile-label">Carrom</span>
+    </button>
+
+    <button type="button" class="mode-tile tile-free-carrom" data-submode="Freestyle Carrom">
+      <span class="tile-label">Freestyle<br>Carrom</span>
+      <div class="mini-board-art">
+        <span class="tag-8">8</span>
+        <span class="tag-2">2</span>
+        <span class="piece-dot" style="background:#f5f5f5; top:12px; left:22px;"></span>
+        <span class="piece-dot" style="background:#ff5722; bottom:6px; left:24px;"></span>
+      </div>
+    </button>
+  </div>
+</div>
+
 <!-- 2P / 4P SELECTOR INSIDE CHOSEN MODE -->
 <div id="modePlayersModal">
   <div class="panel-card">
@@ -794,7 +957,7 @@ canvas {
     </button>
 
     <button type="button" class="choice-btn-4p" id="choose4PlayersBtn">
-      <span>4 Players (P1,P3 vs P2,P4)</span>
+      <span>4 Players (1,3 White vs 2,4 Black)</span>
       <span class="mode-tag">2v2</span>
     </button>
   </div>
@@ -908,59 +1071,40 @@ canvas {
   </div>
 </div>
 
-<!-- IN-GAME TOP HUD -->
+<!-- IN-GAME TOP HUD (ONLY PLAYER CARDS & GOTI COUNT) -->
 <div id="gameHud">
   <div class="player-cards-row">
     <div class="p-card active" id="cardLeft">
-      <div class="avatar-box" id="leftAvatar">P1</div>
-      <div class="p-name" id="leftName">Team AB (P1,P3)</div>
+      <span class="result-tag" id="leftResultTag"></span>
+      <div class="avatar-box" id="leftAvatar">1,3</div>
+      <div class="p-name" id="leftName">1 & 3 (White)</div>
       <div class="p-score-row">
-        <span class="mini-puck" style="background:#040404; border:1px solid #3d3d3d;"></span>
-        <span id="leftScore">0</span>
-      </div>
-    </div>
-
-    <div class="center-stack">
-      <div class="center-banner" id="modeBanner">
-        Pot the Red then cover it with another puck
-      </div>
-      <div class="queen-status-pill" id="queenStatusPill">
-        <span class="legend-dot" style="background:#ff3b5c; border:1px solid #ffd6dc;"></span>
-        <span id="queenStatusText">Cover Queen! (+50)</span>
-      </div>
-      <div class="points-legend" id="pointsLegend" aria-label="Coin Points">
-        <span class="legend-item">
-          <span class="legend-dot" style="background:#f3f3f3; border:1px solid #888;"></span>
-          <span>+20</span>
-        </span>
-        <span class="legend-item">
-          <span class="legend-dot" style="background:#040404; border:1px solid #666;"></span>
-          <span>+10</span>
-        </span>
-        <span class="legend-item">
-          <span class="legend-dot" style="background:#9e1111; border:1px solid #ff7777;"></span>
-          <span>+50</span>
-        </span>
-        <span class="legend-item" style="color:#ff7b6b;">
-          <span>Foul -10</span>
-        </span>
+        <span class="mini-puck" style="background:#f3f3f3; border:1px solid #888;"></span>
+        <span class="goti-count-num" id="leftGotiCount">0</span>
       </div>
     </div>
 
     <div class="p-card" id="cardRight">
-      <div class="avatar-box" id="rightAvatar" style="background:linear-gradient(135deg,#ff7722,#b32400);">P2</div>
-      <div class="p-name" id="rightName">Team CD (P2,P4)</div>
+      <span class="result-tag" id="rightResultTag"></span>
+      <div class="avatar-box" id="rightAvatar" style="background:linear-gradient(135deg,#ff7722,#b32400);">2,4</div>
+      <div class="p-name" id="rightName">2 & 4 (Black)</div>
       <div class="p-score-row">
-        <span class="mini-puck" style="background:#f3f3f3; border:1px solid #adadad;"></span>
-        <span id="rightScore">0</span>
+        <span class="goti-count-num" id="rightGotiCount">0</span>
+        <span class="mini-puck" style="background:#040404; border:1px solid #666;"></span>
       </div>
     </div>
   </div>
 </div>
 
+<!-- STAGE 1: CENTER WINNER BANNER + BLESSING (TOUCH TO DISMISS) -->
+<div id="winnerBannerOverlay">
+  <div class="winner-ribbon-box" id="winnerRibbonText">WINNER WINS</div>
+  <div class="blessing-pill-box">You gave your best, better luck next time</div>
+</div>
+
 <div id="toast"></div>
 
-<!-- WIN / GAME OVER MODAL -->
+<!-- STAGE 2: WIN / GAME OVER MODAL -->
 <div id="winModal">
   <div class="panel-card" style="text-align:center;">
     <h2 id="winnerTitle" style="font-size:24px; color:#ffd97d; margin-bottom:8px;">Match Over!</h2>
@@ -968,7 +1112,10 @@ canvas {
       <div class="king-1st" id="firstKingLine">1st King: -</div>
       <div class="king-2nd" id="secondKingLine">2nd King: -</div>
     </div>
-    <p id="finalScoreText" style="font-size:13.5px; margin-bottom:14px;"></p>
+    <p id="finalScoreText" style="font-size:13.5px; margin-bottom:10px;"></p>
+    <div class="sportsmanship-box">
+      Winning and losing is part of the game, you did great.
+    </div>
     <button type="button" class="action-btn" id="restartBtn">Play Again</button>
     <button type="button" class="action-btn" id="winHomeBtn" style="background:linear-gradient(180deg,#555,#333); color:#fff;">Back to Menu</button>
   </div>
@@ -1035,6 +1182,7 @@ const MONETIZATION_CONFIG = {
 
 // GAME MODES: "offline" | "bot" | "online"
 let gameMode = "offline";
+let selectedSubMode = "Carrom";
 let pendingModeForChoice = "offline";
 let pendingOnlineAction = null; // "join" | "random"
 let playerCount = 4; // 2 or 4
@@ -1043,6 +1191,123 @@ let gameActive = false;
 let botTimer = null;
 let onlineMatchTimer = null;
 let adCountdownTimer = null;
+let winnerModalTimer = null;
+
+// ONLINE REALTIME ROOM SYNC STATE
+let onlineRoomRef = null;
+let onlineRoomListener = null;
+let lastAppliedShotId = null;
+
+function getOnlinePlayerId() {
+  if (userAccount && userAccount.uid) return userAccount.uid;
+  let guestId = sessionStorage.getItem("i4pc_guest_id");
+  if (!guestId) {
+    guestId = "guest_" + Math.random().toString(36).slice(2, 10);
+    sessionStorage.setItem("i4pc_guest_id", guestId);
+  }
+  return guestId;
+}
+
+function getOnlineDisplayName() {
+  return userAccount && userAccount.shortLabel ? userAccount.shortLabel : "Player";
+}
+
+function cleanupOnlineRoomListener() {
+  if (onlineRoomRef && onlineRoomListener) {
+    onlineRoomRef.off("value", onlineRoomListener);
+  }
+  onlineRoomRef = null;
+  onlineRoomListener = null;
+  lastAppliedShotId = null;
+}
+
+function publishOnlineShot(sliderVal, vx, vz) {
+  if (gameMode !== "online" || !firebaseDb || !activeRoomCode) return;
+  const shotId = `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+  lastAppliedShotId = shotId;
+
+  firebaseDb.ref(`rooms/${activeRoomCode}/turnState`).set({
+    shotId,
+    byPlayerId: getOnlinePlayerId(),
+    currentPlayerIndex,
+    sliderVal,
+    vx,
+    vz,
+    teamAScore,
+    teamBScore,
+    teamAGotiCount,
+    teamBGotiCount,
+    queenPendingCover,
+    queenCoveredTeam,
+    updatedAt: Date.now()
+  }).catch(() => {});
+}
+
+function applyRemoteOnlineTurnState(state) {
+  if (!state || !state.shotId || state.shotId === lastAppliedShotId) return;
+  if (state.byPlayerId === getOnlinePlayerId()) return;
+  if (!gameActive || gameMode !== "online") return;
+
+  lastAppliedShotId = state.shotId;
+  if (typeof state.currentPlayerIndex === "number") {
+    currentPlayerIndex = state.currentPlayerIndex;
+  }
+  if (typeof state.teamAScore === "number") teamAScore = state.teamAScore;
+  if (typeof state.teamBScore === "number") teamBScore = state.teamBScore;
+  if (typeof state.teamAGotiCount === "number") teamAGotiCount = state.teamAGotiCount;
+  if (typeof state.teamBGotiCount === "number") teamBGotiCount = state.teamBGotiCount;
+  queenPendingCover = Boolean(state.queenPendingCover);
+  queenCoveredTeam = state.queenCoveredTeam || null;
+
+  const appliedSlider = positionStrikerOnBaseline(
+    currentPlayerIndex,
+    Number(state.sliderVal) || 0
+  );
+  slider.value = appliedSlider;
+
+  striker.vx = Number(state.vx) || 0;
+  striker.vz = Number(state.vz) || 0;
+  pocketedThisTurn = 0;
+  pocketedCoinsThisTurn = [];
+  opponentCoinPocketedThisTurn = false;
+  foulThisTurn = false;
+  queenPocketedThisTurn = false;
+  strikerReady = false;
+  strikerGlow.visible = false;
+  slider.disabled = true;
+  updateHUD();
+}
+
+function subscribeToOnlineRoom(roomCode, count) {
+  cleanupOnlineRoomListener();
+  if (!firebaseDb || !roomCode) return;
+
+  const pid = getOnlinePlayerId();
+  const pname = getOnlineDisplayName();
+  onlineRoomRef = firebaseDb.ref(`rooms/${roomCode}`);
+
+  onlineRoomRef.child("mode").set(count);
+  onlineRoomRef.child(`players/${pid}`).set({
+    name: pname,
+    joinedAt: Date.now()
+  });
+  onlineRoomRef.child(`players/${pid}`).onDisconnect().remove();
+
+  onlineRoomListener = onlineRoomRef.on("value", (snap) => {
+    const data = snap.val();
+    if (!data) return;
+
+    const playersObj = data.players || {};
+    const countJoined = Object.keys(playersObj).length;
+    if (gameActive && gameMode === "online") {
+      updateHUD();
+    }
+
+    if (data.turnState) {
+      applyRemoteOnlineTurnState(data.turnState);
+    }
+  });
+}
 
 // SETTINGS & ACCOUNT STATE
 let soundEnabled = true;
@@ -1137,8 +1402,9 @@ if (firebaseAuth) {
 }
 
 // 4-PLAYER SIDES ON FIXED BOARD:
-// 4P Teams: Side A = P1 & P3, Side B = P2 & P4
-// 2P Singles: Side A = P1, Side B = P2
+// Side A (1 & 3): White gotiyan hamesha Team A ki hain
+// Side B (2 & 4): Black gotiyan hamesha Team B ki hain
+// 2P Singles (Aamne-Saamne): P1 (Neeche, White) vs P2 (Upar, Black)
 const PLAYERS = [
   { id: 0, name: "P1", sideLabel: "Neeche", sideClass: "side-bottom", team: "A", axis: "x", fixedVal:  S(3.26), dir:  1 },
   { id: 1, name: "P2", sideLabel: "Right",  sideClass: "side-right",  team: "B", axis: "z", fixedVal:  S(3.26), dir: -1 },
@@ -1146,19 +1412,50 @@ const PLAYERS = [
   { id: 3, name: "P4", sideLabel: "Left",   sideClass: "side-left",   team: "B", axis: "z", fixedVal: -S(3.26), dir: -1 }
 ];
 
+function getPlayerConfig(playerIdx) {
+  if (playerCount === 2 && playerIdx === 1) {
+    return {
+      id: 1,
+      name: "P2",
+      sideLabel: "Upar",
+      sideClass: "side-top",
+      team: "B",
+      axis: "x",
+      fixedVal: -S(3.26),
+      dir: 1
+    };
+  }
+  return PLAYERS[playerIdx];
+}
+
+function getCoinOwnerTeam(coinType, activeTeam) {
+  if (coinType === "white") return "A";
+  if (coinType === "black") return "B";
+  return activeTeam;
+}
+
+const START_SCORE = 0;
+
 const sliderMaxSpan = Number(S(2.65).toFixed(3));
 const sliderStep = Number(S(0.05).toFixed(3));
 
 let currentPlayerIndex = 0;
-let teamAScore = 0;
-let teamBScore = 0;
+let teamAScore = START_SCORE;
+let teamBScore = START_SCORE;
+let teamAGotiCount = 0;
+let teamBGotiCount = 0;
 let pocketedThisTurn = 0;
+let pocketedCoinsThisTurn = [];
+let opponentCoinPocketedThisTurn = false;
 let foulThisTurn = false;
 let queenPendingCover = false;
 let queenPocketedThisTurn = false;
+let queenCoveredTeam = null; // "A" or "B" once Queen is potted and covered
 let toastTimer = null;
 
 let droppingCoins = [];
+let pocketFlashRings = [];
+let winnerBlastParticles = [];
 
 const controlsEl = document.getElementById("controls");
 const slider = document.getElementById("baselineSlider");
@@ -1167,11 +1464,11 @@ slider.max = sliderMaxSpan;
 slider.step = sliderStep;
 
 function getSideALabel() {
-  return playerCount === 4 ? "Team AB (P1,P3)" : "P1";
+  return playerCount === 4 ? "1 & 3 (White)" : "P1 (White)";
 }
 
 function getSideBLabel() {
-  return playerCount === 4 ? "Team CD (P2,P4)" : "P2";
+  return playerCount === 4 ? "2 & 4 (Black)" : "P2 (Black)";
 }
 
 function getNextPlayerIndex(fromIdx) {
@@ -1179,7 +1476,7 @@ function getNextPlayerIndex(fromIdx) {
 }
 
 function syncSliderSide(playerIdx) {
-  const p = PLAYERS[playerIdx];
+  const p = getPlayerConfig(playerIdx);
   const wasVisible = controlsEl.style.display === "block" || controlsEl.style.display === "flex";
   controlsEl.className = p.sideClass;
   if (wasVisible) {
@@ -1187,7 +1484,7 @@ function syncSliderSide(playerIdx) {
   }
 }
 
-// SOUND ENGINE
+// REALISTIC CARROM SOUND ENGINE (COIN CLACK, WOOD RAIL, POCKET DROP)
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 let audioCtx = null;
 
@@ -1201,42 +1498,52 @@ function initAudio() {
 
 function playClack(intensity = 0.5) {
   if (!soundEnabled || !audioCtx) return;
-  const vol = Math.min(Math.max(intensity, 0.05), 1.0);
+  const vol = Math.min(Math.max(intensity, 0.08), 1.0);
   const now = audioCtx.currentTime;
 
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = "triangle";
-  osc.frequency.setValueAtTime(950 + vol * 450, now);
-  osc.frequency.exponentialRampToValueAtTime(180, now + 0.045);
+  const osc1 = audioCtx.createOscillator();
+  const gain1 = audioCtx.createGain();
+  osc1.type = "triangle";
+  osc1.frequency.setValueAtTime(1650 + vol * 650, now);
+  osc1.frequency.exponentialRampToValueAtTime(320, now + 0.032);
+  gain1.gain.setValueAtTime(vol * 0.5, now);
+  gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.036);
+  osc1.connect(gain1);
+  gain1.connect(audioCtx.destination);
+  osc1.start(now);
+  osc1.stop(now + 0.04);
 
-  gain.gain.setValueAtTime(vol * 0.45, now);
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  osc.start(now);
-  osc.stop(now + 0.055);
+  const osc2 = audioCtx.createOscillator();
+  const gain2 = audioCtx.createGain();
+  osc2.type = "sine";
+  osc2.frequency.setValueAtTime(620 + vol * 220, now);
+  osc2.frequency.exponentialRampToValueAtTime(190, now + 0.055);
+  gain2.gain.setValueAtTime(vol * 0.28, now);
+  gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+  osc2.connect(gain2);
+  gain2.connect(audioCtx.destination);
+  osc2.start(now);
+  osc2.stop(now + 0.065);
 }
 
 function playWallBounce(intensity = 0.4) {
   if (!soundEnabled || !audioCtx) return;
-  const vol = Math.min(Math.max(intensity, 0.05), 0.9);
+  const vol = Math.min(Math.max(intensity, 0.08), 0.95);
   const now = audioCtx.currentTime;
 
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
   osc.type = "sine";
-  osc.frequency.setValueAtTime(260, now);
-  osc.frequency.exponentialRampToValueAtTime(85, now + 0.06);
+  osc.frequency.setValueAtTime(215 + vol * 50, now);
+  osc.frequency.exponentialRampToValueAtTime(68, now + 0.075);
 
-  gain.gain.setValueAtTime(vol * 0.4, now);
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
+  gain.gain.setValueAtTime(vol * 0.52, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
 
   osc.connect(gain);
   gain.connect(audioCtx.destination);
   osc.start(now);
-  osc.stop(now + 0.07);
+  osc.stop(now + 0.085);
 }
 
 function playPocketSound(isFoul = false) {
@@ -1246,16 +1553,16 @@ function playPocketSound(isFoul = false) {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
   osc.type = isFoul ? "sawtooth" : "sine";
-  osc.frequency.setValueAtTime(isFoul ? 220 : 420, now);
-  osc.frequency.exponentialRampToValueAtTime(isFoul ? 90 : 120, now + 0.18);
+  osc.frequency.setValueAtTime(isFoul ? 250 : 480, now);
+  osc.frequency.exponentialRampToValueAtTime(isFoul ? 78 : 95, now + 0.2);
 
-  gain.gain.setValueAtTime(0.35, now);
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+  gain.gain.setValueAtTime(isFoul ? 0.36 : 0.4, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
 
   osc.connect(gain);
   gain.connect(audioCtx.destination);
   osc.start(now);
-  osc.stop(now + 0.22);
+  osc.stop(now + 0.24);
 }
 
 function showToast(msg, color = "#ffcc22") {
@@ -1275,7 +1582,7 @@ function isBotPlayer(idx) {
 }
 
 function updateHUD() {
-  const p = PLAYERS[currentPlayerIndex];
+  const p = getPlayerConfig(currentPlayerIndex);
   syncSliderSide(currentPlayerIndex);
 
   if (gameMode === "online") {
@@ -1287,30 +1594,8 @@ function updateHUD() {
     document.getElementById("rightName").textContent = getSideBLabel();
   }
 
-  document.getElementById("leftScore").textContent = teamAScore;
-  document.getElementById("rightScore").textContent = teamBScore;
-
-  const queenPill = document.getElementById("queenStatusPill");
-  const queenText = document.getElementById("queenStatusText");
-  if (queenPendingCover) {
-    queenPill.classList.add("visible");
-    queenText.textContent = `Cover Queen! (${p.name} • +50)`;
-  } else {
-    queenPill.classList.remove("visible");
-  }
-
-  const countTag = `${playerCount}P`;
-  const roomTag = gameMode === "online" && activeRoomCode ? `[${activeRoomCode}] ` : "";
-  if (queenPendingCover) {
-    document.getElementById("modeBanner").textContent =
-      `${roomTag}${countTag} • ${p.name} Turn • Cover Queen`;
-  } else if (isBotPlayer(currentPlayerIndex)) {
-    document.getElementById("modeBanner").textContent =
-      `${roomTag}${countTag} • ${p.name} Bot aiming...`;
-  } else {
-    document.getElementById("modeBanner").textContent =
-      `${roomTag}${countTag} • ${p.name} (${p.sideLabel}) • Pot Red & cover`;
-  }
+  document.getElementById("leftGotiCount").textContent = teamAGotiCount;
+  document.getElementById("rightGotiCount").textContent = teamBGotiCount;
 
   document.getElementById("cardLeft").classList.toggle("active", p.team === "A");
   document.getElementById("cardRight").classList.toggle("active", p.team === "B");
@@ -1322,6 +1607,25 @@ function updateHUD() {
       `${p.name} (${p.sideLabel})`;
   }
 }
+
+function resetWinnerVisuals() {
+  clearTimeout(winnerModalTimer);
+  document.getElementById("winnerBannerOverlay").style.display = "none";
+  const leftTag = document.getElementById("leftResultTag");
+  const rightTag = document.getElementById("rightResultTag");
+  leftTag.className = "result-tag";
+  leftTag.textContent = "";
+  rightTag.className = "result-tag";
+  rightTag.textContent = "";
+}
+
+function openWinnerModalFromBanner() {
+  clearTimeout(winnerModalTimer);
+  document.getElementById("winnerBannerOverlay").style.display = "none";
+  document.getElementById("winModal").style.display = "flex";
+}
+
+document.getElementById("winnerBannerOverlay").addEventListener("pointerdown", openWinnerModalFromBanner);
 
 // SCENE
 const scene = new THREE.Scene();
@@ -1687,10 +1991,53 @@ function makeCoin(x, z, sideColor, radius, type) {
   return obj;
 }
 
-function startPocketDrop(obj, removeMeshOnDone) {
+function triggerPocketSinkEffect(px, pz) {
+  const ring = new THREE.Mesh(
+    new THREE.RingGeometry(S(0.36), S(0.60), 40),
+    new THREE.MeshBasicMaterial({
+      color: 0xffb82e,
+      transparent: true,
+      opacity: 0.85,
+      side: THREE.DoubleSide,
+      depthWrite: false
+    })
+  );
+  ring.rotation.x = -Math.PI / 2;
+  ring.position.set(px, 0.165, pz);
+  scene.add(ring);
+
+  pocketFlashRings.push({
+    mesh: ring,
+    life: 1.0
+  });
+}
+
+function updatePocketFlashRings() {
+  for (let i = pocketFlashRings.length - 1; i >= 0; i--) {
+    const r = pocketFlashRings[i];
+    r.life -= 0.055;
+    if (r.life <= 0) {
+      scene.remove(r.mesh);
+      pocketFlashRings.splice(i, 1);
+    } else {
+      r.mesh.material.opacity = r.life * 0.85;
+      const sc = 1 + (1 - r.life) * 0.22;
+      r.mesh.scale.set(sc, sc, 1);
+    }
+  }
+}
+
+// GOTI POCKET ME JANE PAR ~1.6 SECOND TAK POCKET KE ANDAR DIKHTI HAI (PIC REFERENCE)
+function startPocketDrop(obj, pocketPos, removeMeshOnDone) {
+  if (pocketPos) {
+    triggerPocketSinkEffect(pocketPos.x, pocketPos.z);
+  }
+
   const dropMesh = obj.mesh.clone();
-  dropMesh.position.set(obj.x, 0.21, obj.z);
-  dropMesh.scale.set(1, 1, 1);
+  const px = pocketPos ? pocketPos.x : obj.x;
+  const pz = pocketPos ? pocketPos.z : obj.z;
+  dropMesh.position.set(px, 0.168, pz);
+  dropMesh.scale.set(0.84, 0.72, 0.84);
   scene.add(dropMesh);
 
   if (removeMeshOnDone) {
@@ -1701,23 +2048,75 @@ function startPocketDrop(obj, removeMeshOnDone) {
 
   droppingCoins.push({
     mesh: dropMesh,
-    progress: 0
+    life: 1.0
   });
 }
 
 function updatePocketDrops() {
   for (let i = droppingCoins.length - 1; i >= 0; i--) {
     const d = droppingCoins[i];
-    d.progress += 0.18;
-    const t = Math.min(d.progress, 1);
+    d.life -= 0.01;
 
-    d.mesh.position.y = 0.21 - t * 0.16;
-    const s = Math.max(0.1, 1 - t * 0.85);
-    d.mesh.scale.set(s, Math.max(0.25, 1 - t * 0.5), s);
+    if (d.life <= 0.28) {
+      const fadeT = Math.max(0, d.life / 0.28);
+      const s = Math.max(0.2, 0.84 * fadeT);
+      d.mesh.scale.set(s, 0.72 * fadeT, s);
+      d.mesh.position.y = 0.168 - (1 - fadeT) * 0.04;
+    }
 
-    if (t >= 1) {
+    if (d.life <= 0) {
       scene.remove(d.mesh);
       droppingCoins.splice(i, 1);
+    }
+  }
+}
+
+function clearWinnerBlast() {
+  for (const p of winnerBlastParticles) {
+    scene.remove(p.mesh);
+  }
+  winnerBlastParticles = [];
+}
+
+function spawnWinnerBlast() {
+  clearWinnerBlast();
+  const colors = [0xffcc22, 0xff5533, 0x33ff99, 0x33bbff, 0xff66cc];
+  for (let i = 0; i < 42; i++) {
+    const mesh = new THREE.Mesh(
+      new THREE.BoxGeometry(S(0.22), S(0.22), S(0.22)),
+      new THREE.MeshBasicMaterial({ color: colors[i % colors.length] })
+    );
+    mesh.position.set(0, 0.6, 0);
+    scene.add(mesh);
+
+    const angle = (Math.PI * 2 * i) / 42 + (Math.random() - 0.5) * 0.25;
+    const speed = S(2.5 + Math.random() * 5.5);
+    winnerBlastParticles.push({
+      mesh,
+      vx: Math.cos(angle) * speed,
+      vy: S(2.5 + Math.random() * 4.5),
+      vz: Math.sin(angle) * speed,
+      life: 1.0
+    });
+  }
+}
+
+function updateWinnerBlast() {
+  for (let i = winnerBlastParticles.length - 1; i >= 0; i--) {
+    const p = winnerBlastParticles[i];
+    p.life -= 0.022;
+    p.vy -= S(12) * 0.016;
+    p.mesh.position.x += p.vx * 0.016;
+    p.mesh.position.y = Math.max(0.18, p.mesh.position.y + p.vy * 0.016);
+    p.mesh.position.z += p.vz * 0.016;
+    p.mesh.rotation.x += 0.14;
+    p.mesh.rotation.y += 0.18;
+    const sc = Math.max(0.05, p.life);
+    p.mesh.scale.set(sc, sc, sc);
+
+    if (p.life <= 0) {
+      scene.remove(p.mesh);
+      winnerBlastParticles.splice(i, 1);
     }
   }
 }
@@ -1734,7 +2133,7 @@ function isSpotClearForStriker(sx, sz) {
 }
 
 function sliderToCoords(playerIdx, sliderVal) {
-  const p = PLAYERS[playerIdx];
+  const p = getPlayerConfig(playerIdx);
   const offset = sliderVal * p.dir;
   return p.axis === "x"
     ? { x: offset, z: p.fixedVal }
@@ -1794,6 +2193,113 @@ function returnQueenToCenter() {
   scene.add(queenObj.mesh);
 }
 
+function returnCoinToCenterSpot(coin, offsetIndex = 0) {
+  const angle = (offsetIndex * Math.PI * 2) / 6;
+  const rx = offsetIndex === 0 ? 0 : Math.cos(angle) * S(0.45);
+  const rz = offsetIndex === 0 ? 0 : Math.sin(angle) * S(0.45);
+
+  coin.active = true;
+  coin.vx = 0;
+  coin.vz = 0;
+  coin.x = rx;
+  coin.z = rz;
+  coin.mesh.visible = true;
+  coin.mesh.scale.set(1, 1, 1);
+  coin.mesh.position.set(rx, 0.23, rz);
+  scene.add(coin.mesh);
+}
+
+// BINA QUEEN COVER KIYE 9TH GOTI DALNE PAR FOUL + 2 GOTIYAN BAHAR CENTER ME WAPAS
+function enforceEightGotiCapWithoutQueen() {
+  let triggeredNinthWithoutQueenFoul = false;
+  let centerIdx = 0;
+
+  const teamConfigs = [
+    { team: "A", coinType: "white", getCount: () => teamAGotiCount, setCount: (v) => { teamAGotiCount = v; }, getScore: () => teamAScore, setScore: (v) => { teamAScore = v; }, ptsPerCoin: 20 },
+    { team: "B", coinType: "black", getCount: () => teamBGotiCount, setCount: (v) => { teamBGotiCount = v; }, getScore: () => teamBScore, setScore: (v) => { teamBScore = v; }, ptsPerCoin: 10 }
+  ];
+
+  for (const cfg of teamConfigs) {
+    if (queenCoveredTeam === cfg.team) continue;
+
+    const inactiveOfColor = objects.filter((o) => !o.active && o.type === cfg.coinType);
+    const activeOfColor = objects.filter((o) => o.active && o.type === cfg.coinType);
+
+    if (inactiveOfColor.length > 8 || activeOfColor.length < 1) {
+      foulThisTurn = true;
+      triggeredNinthWithoutQueenFoul = true;
+
+      let returnedCount = 0;
+      while (returnedCount < 2) {
+        const currentInactive = objects.filter((o) => !o.active && o.type === cfg.coinType);
+        if (!currentInactive.length) break;
+        const coinToReturn = currentInactive[currentInactive.length - 1];
+        returnCoinToCenterSpot(coinToReturn, centerIdx++);
+        returnedCount++;
+      }
+
+      const nextCount = Math.max(0, cfg.getCount() - returnedCount);
+      cfg.setCount(nextCount);
+      cfg.setScore(Math.max(0, cfg.getScore() - returnedCount * cfg.ptsPerCoin));
+    }
+  }
+
+  if (triggeredNinthWithoutQueenFoul) {
+    playPocketSound(true);
+    showToast("FOUL! 2 Goti Bahar • Pehle Queen Dalein", "#ff5544");
+    updateHUD();
+  }
+}
+
+// STRIKER FOUL HONE PAR EK GOTI BAHAR NIKALKAR CENTER ME LANA
+function bringOneGotiToCenterOnStrikerFoul(activeTeam) {
+  if (pocketedCoinsThisTurn.length > 0) {
+    restoreCoinsPocketedBeforeFoul(activeTeam);
+    return;
+  }
+
+  const teamCoinType = activeTeam === "A" ? "white" : "black";
+  const pocketedTeamCoin = objects.find((o) => !o.active && o.type === teamCoinType);
+  if (!pocketedTeamCoin) return;
+
+  returnCoinToCenterSpot(pocketedTeamCoin, 0);
+  addTeamGotiCount(activeTeam, -1);
+  addTeamPoints(activeTeam, teamCoinType === "white" ? -20 : -10);
+  updateHUD();
+}
+
+// FOUL KE JUST PEHLE GIRI GOTIYON KO UNKE COLOR TEAM SE WAPAS NIKALNA
+function restoreCoinsPocketedBeforeFoul(activeTeam) {
+  if (!pocketedCoinsThisTurn.length) return;
+
+  for (let idx = 0; idx < pocketedCoinsThisTurn.length; idx++) {
+    const entry = pocketedCoinsThisTurn[idx];
+    const coin = entry.coin;
+    const ownerTeam = entry.ownerTeam || getCoinOwnerTeam(coin.type, activeTeam);
+
+    if (entry.pts > 0) {
+      addTeamPoints(ownerTeam, -entry.pts);
+    }
+
+    if (entry.gotiInc > 0) {
+      addTeamGotiCount(ownerTeam, -entry.gotiInc);
+    }
+
+    if (coin.type === "queen") {
+      queenPendingCover = false;
+      queenPocketedThisTurn = false;
+      queenCoveredTeam = null;
+    }
+
+    returnCoinToCenterSpot(coin, idx);
+  }
+
+  pocketedCoinsThisTurn = [];
+  pocketedThisTurn = 0;
+  opponentCoinPocketedThisTurn = false;
+  updateHUD();
+}
+
 // SMARTER BOT AI SHOT SELECTION
 function isPathObstructed(ax, az, bx, bz, ignoreCoin, clearanceRadius) {
   const abx = bx - ax;
@@ -1815,7 +2321,7 @@ function isPathObstructed(ax, az, bx, bz, ignoreCoin, clearanceRadius) {
 }
 
 function chooseBestBotShot(playerIdx) {
-  const p = PLAYERS[playerIdx];
+  const p = getPlayerConfig(playerIdx);
   const allCoins = objects.filter((o) => o.active && o.type !== "striker");
   if (allCoins.length === 0) return null;
 
@@ -1940,6 +2446,8 @@ function scheduleBotTurnIfNeeded() {
     striker.vx = (dx / dist) * speed;
     striker.vz = (dz / dist) * speed;
     pocketedThisTurn = 0;
+    pocketedCoinsThisTurn = [];
+    opponentCoinPocketedThisTurn = false;
     foulThisTurn = false;
     queenPocketedThisTurn = false;
     strikerReady = false;
@@ -1948,9 +2456,17 @@ function scheduleBotTurnIfNeeded() {
   }, 850);
 }
 
-// FULL 19-COIN CARROM HEXAGONAL RACK
+// FULL 19-COIN CARROM HEXAGONAL RACK (9 WHITE + 9 BLACK + 1 QUEEN)
 function setupBoard() {
   clearTimeout(botTimer);
+  clearWinnerBlast();
+  resetWinnerVisuals();
+
+  for (const r of pocketFlashRings) {
+    scene.remove(r.mesh);
+  }
+  pocketFlashRings = [];
+
   for (const d of droppingCoins) {
     scene.remove(d.mesh);
   }
@@ -1962,12 +2478,17 @@ function setupBoard() {
   objects = [];
 
   currentPlayerIndex = 0;
-  teamAScore = 0;
-  teamBScore = 0;
+  teamAScore = START_SCORE;
+  teamBScore = START_SCORE;
+  teamAGotiCount = 0;
+  teamBGotiCount = 0;
   pocketedThisTurn = 0;
+  pocketedCoinsThisTurn = [];
+  opponentCoinPocketedThisTurn = false;
   foulThisTurn = false;
   queenPendingCover = false;
   queenPocketedThisTurn = false;
+  queenCoveredTeam = null;
 
   const coinR = S(0.285);
   const spacing = coinR * 2.02;
@@ -2039,7 +2560,9 @@ slider.addEventListener("input", (e) => {
   e.target.value = applied;
 });
 
-// UI NAVIGATION, 2P/4P INSIDE MODES, ACCOUNT SIGN-IN, REWARDS & SETTINGS
+// UI NAVIGATION: LOBBY -> SELECT MODE (FIRST PIC STYLE) -> 2P/4P -> GAME (GOTI COUNT 0, 1...)
+const selectModeModal = document.getElementById("selectModeModal");
+const selectModeHeading = document.getElementById("selectModeHeading");
 const modePlayersModal = document.getElementById("modePlayersModal");
 const modeChoiceTitle = document.getElementById("modeChoiceTitle");
 const modeChoiceDesc = document.getElementById("modeChoiceDesc");
@@ -2051,15 +2574,22 @@ function enterGameMode(mode, count, bannerOverride = null, roomCode = "") {
   activeRoomCode = roomCode;
   gameActive = true;
   document.getElementById("homeScreen").style.display = "none";
+  selectModeModal.style.display = "none";
   modePlayersModal.style.display = "none";
   document.getElementById("onlineModal").style.display = "none";
   document.getElementById("authModal").style.display = "none";
   document.getElementById("gameHud").style.display = "block";
-  controlsEl.style.display = (PLAYERS[currentPlayerIndex].sideClass === "side-right" || PLAYERS[currentPlayerIndex].sideClass === "side-left") ? "flex" : "block";
+  const initialSideClass = getPlayerConfig(0).sideClass;
+  controlsEl.style.display = (initialSideClass === "side-right" || initialSideClass === "side-left") ? "flex" : "block";
   document.getElementById("cornerMenuBtn").style.display = "block";
   setupBoard();
   if (bannerOverride) {
     document.getElementById("modeBanner").textContent = bannerOverride;
+  }
+  if (mode === "online" && roomCode) {
+    subscribeToOnlineRoom(roomCode, playerCount);
+  } else {
+    cleanupOnlineRoomListener();
   }
 }
 
@@ -2067,6 +2597,9 @@ function returnToHome() {
   clearTimeout(botTimer);
   clearTimeout(onlineMatchTimer);
   clearInterval(adCountdownTimer);
+  clearWinnerBlast();
+  resetWinnerVisuals();
+  cleanupOnlineRoomListener();
   gameActive = false;
   activeRoomCode = "";
   pendingOnlineAction = null;
@@ -2077,6 +2610,7 @@ function returnToHome() {
   document.getElementById("winModal").style.display = "none";
   document.getElementById("settingsModal").style.display = "none";
   document.getElementById("authModal").style.display = "none";
+  selectModeModal.style.display = "none";
   modePlayersModal.style.display = "none";
   document.getElementById("gameHud").style.display = "none";
   controlsEl.style.display = "none";
@@ -2084,20 +2618,31 @@ function returnToHome() {
   document.getElementById("homeScreen").style.display = "flex";
 }
 
-function openModePlayerChoice(mode) {
+function openSelectModePopup(mode) {
   initAudio();
   pendingModeForChoice = mode;
   pendingOnlineAction = null;
-  if (mode === "offline") {
-    modeChoiceTitle.textContent = "Play Offline";
-    modeChoiceDesc.textContent = "Offline Pass & Play ke liye 2P ya 4P chunein:";
-  } else if (mode === "bot") {
-    modeChoiceTitle.textContent = "Play Vs Bot";
-    modeChoiceDesc.textContent = "Bot match ke liye 2P ya 4P chunein:";
-  } else {
-    modeChoiceTitle.textContent = "Play Online";
-    modeChoiceDesc.textContent = "Online match ke liye 2P ya 4P chunein:";
-  }
+  selectModeHeading.textContent = "Select Mode";
+  selectModeModal.style.display = "flex";
+}
+
+document.getElementById("closeSelectModeBtn").addEventListener("click", () => {
+  selectModeModal.style.display = "none";
+});
+
+document.querySelectorAll(".mode-tile").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    selectedSubMode = btn.dataset.submode || "Carrom";
+    selectModeModal.style.display = "none";
+    openModePlayerChoice(pendingModeForChoice);
+  });
+});
+
+function openModePlayerChoice(mode) {
+  initAudio();
+  pendingModeForChoice = mode;
+  modeChoiceTitle.textContent = `${selectedSubMode} • Players`;
+  modeChoiceDesc.textContent = `${selectedSubMode} (${mode.toUpperCase()}) ke liye 2P ya 4P chunein:`;
   modePlayersModal.style.display = "flex";
 }
 
@@ -2157,7 +2702,6 @@ function openAdModal({ type, seconds = 3, onComplete }) {
     }
   }, 1000);
 }
-
 
 function triggerBonusAdReward() {
   initAudio();
@@ -2336,12 +2880,7 @@ function launchChosenPlayerCount(chosenCount) {
       onComplete: () => {
         quickMatchBtn.disabled = false;
         randomRoomBtn.disabled = false;
-        enterGameMode(
-          "online",
-          playerCount,
-          `[${code}] ${playerCount}P Online • Pot Red & cover`,
-          code
-        );
+        enterGameMode("online", playerCount, null, code);
       }
     });
   }
@@ -2356,11 +2895,11 @@ document.getElementById("choose4PlayersBtn").addEventListener("click", () => {
 });
 
 document.getElementById("startOfflineBtn").addEventListener("click", () => {
-  openModePlayerChoice("offline");
+  openSelectModePopup("offline");
 });
 
 document.getElementById("startBotBtn").addEventListener("click", () => {
-  openModePlayerChoice("bot");
+  openSelectModePopup("bot");
 });
 
 document.getElementById("openOnlineBtn").addEventListener("click", () => {
@@ -2375,8 +2914,8 @@ document.getElementById("openOnlineBtn").addEventListener("click", () => {
   }
   onlineStatusEl.style.color = "#ffd97d";
   onlineStatusEl.textContent = savedRoom
-    ? `Last room: ${savedRoom} — Tap Join/Random to pick 2P or 4P`
-    : "Room code daalein ya Quick Match chunein (2P ya 4P select karein).";
+    ? `Last room: ${savedRoom} — Tap Join/Random to pick mode & 2P/4P`
+    : "Room code daalein ya Quick Match chunein.";
   document.getElementById("onlineModal").style.display = "flex";
 });
 
@@ -2404,17 +2943,17 @@ quickMatchBtn.addEventListener("click", () => {
   }
   pendingModeForChoice = "online";
   pendingOnlineAction = "join";
-  modeChoiceTitle.textContent = `Online Room: ${cleaned}`;
-  modeChoiceDesc.textContent = "Is online room mein 2P ya 4P match khelein:";
-  modePlayersModal.style.display = "flex";
+  document.getElementById("onlineModal").style.display = "none";
+  selectModeHeading.textContent = "Select Mode";
+  selectModeModal.style.display = "flex";
 });
 
 randomRoomBtn.addEventListener("click", () => {
   pendingModeForChoice = "online";
   pendingOnlineAction = "random";
-  modeChoiceTitle.textContent = "Random Online Match";
-  modeChoiceDesc.textContent = "Random match ke liye 2P ya 4P chunein:";
-  modePlayersModal.style.display = "flex";
+  document.getElementById("onlineModal").style.display = "none";
+  selectModeHeading.textContent = "Select Mode";
+  selectModeModal.style.display = "flex";
 });
 
 document.getElementById("openSettingsHome").addEventListener("click", () => {
@@ -2489,6 +3028,8 @@ renderer.domElement.addEventListener("pointerdown", (e) => {
     activePointer = e.pointerId;
     slider.disabled = true;
     pocketedThisTurn = 0;
+    pocketedCoinsThisTurn = [];
+    opponentCoinPocketedThisTurn = false;
     foulThisTurn = false;
     queenPocketedThisTurn = false;
     renderer.domElement.setPointerCapture(e.pointerId);
@@ -2556,6 +3097,7 @@ function releaseStriker(e) {
     striker.vz = shotVector.z * powerMultiplier;
     strikerReady = false;
     strikerGlow.visible = false;
+    publishOnlineShot(parseFloat(slider.value) || 0, striker.vx, striker.vz);
   } else {
     slider.disabled = false;
   }
@@ -2582,40 +3124,84 @@ function addTeamPoints(team, pts) {
   }
 }
 
-function showMatchWinnerModal() {
-  walletCoins += Math.max(teamAScore, teamBScore) * 5;
+function addTeamGotiCount(team, countDelta) {
+  if (team === "A") {
+    teamAGotiCount = Math.max(0, teamAGotiCount + countDelta);
+  } else {
+    teamBGotiCount = Math.max(0, teamBGotiCount + countDelta);
+  }
+}
+
+function getWinnerTeamIfQualified() {
+  const whiteLeft = objects.filter((o) => o.active && o.type === "white").length;
+  const blackLeft = objects.filter((o) => o.active && o.type === "black").length;
+
+  // Winner tabhi hoga jab Queen cover ho chuki ho AND us team ki saari gotiyan khatam ho chuki hon
+  if (queenCoveredTeam === "A" && whiteLeft === 0) {
+    return "A";
+  }
+  if (queenCoveredTeam === "B" && blackLeft === 0) {
+    return "B";
+  }
+  return null;
+}
+
+function showMatchWinnerModal(winnerTeam = null) {
+  clearTimeout(winnerModalTimer);
+  walletCoins += Math.max(teamAScore, teamBScore) * 2;
   saveWalletCoins();
 
   const sideAName = getSideALabel();
   const sideBName = getSideBLabel();
+  const leftTag = document.getElementById("leftResultTag");
+  const rightTag = document.getElementById("rightResultTag");
+  const winnerRibbonEl = document.getElementById("winnerRibbonText");
   const firstKingEl = document.getElementById("firstKingLine");
   const secondKingEl = document.getElementById("secondKingLine");
   const winnerTitleEl = document.getElementById("winnerTitle");
   const finalScoreEl = document.getElementById("finalScoreText");
 
-  if (teamAScore > teamBScore) {
+  let champLabel = "MATCH OVER";
+  if (winnerTeam === "A") {
+    champLabel = `${sideAName.toUpperCase()} WINS`;
+    leftTag.textContent = "WINNER";
+    leftTag.className = "result-tag winner";
+    rightTag.textContent = "You gave your best, better luck next time";
+    rightTag.className = "result-tag blessing";
     winnerTitleEl.textContent = `${sideAName} Wins!`;
-    firstKingEl.textContent = `1st King: ${sideAName} (${teamAScore} PTS)`;
-    secondKingEl.textContent = `2nd King: ${sideBName} (${teamBScore} PTS)`;
-  } else if (teamBScore > teamAScore) {
+    firstKingEl.textContent = `1st King: ${sideAName} (${teamAGotiCount} Goti + Queen)`;
+    secondKingEl.textContent = `2nd King: ${sideBName} (${teamBGotiCount} Goti)`;
+  } else if (winnerTeam === "B") {
+    champLabel = `${sideBName.toUpperCase()} WINS`;
+    leftTag.textContent = "You gave your best, better luck next time";
+    leftTag.className = "result-tag blessing";
+    rightTag.textContent = "WINNER";
+    rightTag.className = "result-tag winner";
     winnerTitleEl.textContent = `${sideBName} Wins!`;
-    firstKingEl.textContent = `1st King: ${sideBName} (${teamBScore} PTS)`;
-    secondKingEl.textContent = `2nd King: ${sideAName} (${teamAScore} PTS)`;
+    firstKingEl.textContent = `1st King: ${sideBName} (${teamBGotiCount} Goti + Queen)`;
+    secondKingEl.textContent = `2nd King: ${sideAName} (${teamAGotiCount} Goti)`;
   } else {
-    winnerTitleEl.textContent = "Match Tied!";
-    firstKingEl.textContent = `1st King (Tie): ${sideAName} & ${sideBName}`;
-    secondKingEl.textContent = `2nd King: Both Tied at ${teamAScore} PTS`;
+    winnerTitleEl.textContent = "Match Over!";
+    firstKingEl.textContent = `1st King: ${sideAName} (${teamAGotiCount} Goti)`;
+    secondKingEl.textContent = `2nd King: ${sideBName} (${teamBGotiCount} Goti)`;
   }
 
-  finalScoreEl.textContent = `${sideAName}: ${teamAScore} PTS  |  ${sideBName}: ${teamBScore} PTS`;
-  document.getElementById("winModal").style.display = "flex";
+  winnerRibbonEl.textContent = champLabel;
+  finalScoreEl.textContent = `${sideAName}: ${teamAGotiCount} Goti  |  ${sideBName}: ${teamBGotiCount} Goti`;
+
+  spawnWinnerBlast();
+  playPocketSound(false);
+  document.getElementById("winnerBannerOverlay").style.display = "flex";
+
+  winnerModalTimer = setTimeout(openWinnerModalFromBanner, 3500);
 }
 
 function updatePhysics() {
   if (!gameActive || strikerReady || dragging) return;
 
-  const activeTeam = PLAYERS[currentPlayerIndex].team;
-  const activePlayerName = PLAYERS[currentPlayerIndex].name;
+  const activePlayer = getPlayerConfig(currentPlayerIndex);
+  const activeTeam = activePlayer.team;
+  const activePlayerName = activePlayer.name;
 
   for (const o of objects) {
     if (!o.active) continue;
@@ -2637,29 +3223,54 @@ function updatePhysics() {
           o.vx = 0;
           o.vz = 0;
           o.active = false;
-          startPocketDrop(o, false);
+          startPocketDrop(o, p, false);
           foulThisTurn = true;
           addTeamPoints(activeTeam, -10);
+          bringOneGotiToCenterOnStrikerFoul(activeTeam);
           updateHUD();
           playPocketSound(true);
-          showToast(`${activePlayerName} FOUL! -10 PTS`, "#ff5544");
+          showToast(`${activePlayerName} FOUL! 1 Goti Center Mein`, "#ff5544");
         } else {
           o.active = false;
-          startPocketDrop(o, true);
+          startPocketDrop(o, p, true);
           pocketedThisTurn++;
           playPocketSound(false);
 
+          const coinOwnerTeam = getCoinOwnerTeam(o.type, activeTeam);
+          let earnedPts = 0;
+          let gotiInc = 0;
+
           if (o.type === "white") {
-            addTeamPoints(activeTeam, 20);
-            showToast(`${activePlayerName}: White +20`, "#f3f3f3");
+            earnedPts = 20;
+            gotiInc = 1;
+            addTeamGotiCount("A", gotiInc);
+            addTeamPoints("A", earnedPts);
+            if (activeTeam !== "A") {
+              opponentCoinPocketedThisTurn = true;
+              showToast(`${activePlayerName}: White Goti (+1 ${getSideALabel()}) • Turn End`, "#ffe0a0");
+            } else {
+              showToast(`White +1 Goti (${getSideALabel()})`, "#f3f3f3");
+            }
           } else if (o.type === "black") {
-            addTeamPoints(activeTeam, 10);
-            showToast(`${activePlayerName}: Black +10`, "#ffe0a0");
+            earnedPts = 10;
+            gotiInc = 1;
+            addTeamGotiCount("B", gotiInc);
+            addTeamPoints("B", earnedPts);
+            if (activeTeam !== "B") {
+              opponentCoinPocketedThisTurn = true;
+              showToast(`${activePlayerName}: Black Goti (+1 ${getSideBLabel()}) • Turn End`, "#ffe0a0");
+            } else {
+              showToast(`Black +1 Goti (${getSideBLabel()})`, "#ffe0a0");
+            }
           } else if (o.type === "queen") {
+            gotiInc = 1;
+            addTeamGotiCount(activeTeam, gotiInc);
             queenPendingCover = true;
             queenPocketedThisTurn = true;
             showToast(`${activePlayerName}: Queen Potted! Cover it`, "#ff6680");
           }
+
+          pocketedCoinsThisTurn.push({ coin: o, pts: earnedPts, gotiInc, ownerTeam: coinOwnerTeam });
           updateHUD();
         }
         break;
@@ -2747,8 +3358,8 @@ function checkTurnEnd() {
     objects.some((o) => o.active && Math.hypot(o.vx, o.vz) > S(0.03));
 
   if (!anyMoving) {
-    const activeTeam = PLAYERS[currentPlayerIndex].team;
-    const curP = PLAYERS[currentPlayerIndex];
+    const curP = getPlayerConfig(currentPlayerIndex);
+    const activeTeam = curP.team;
 
     if (queenPendingCover) {
       const nonQueenPocketed = queenPocketedThisTurn
@@ -2757,34 +3368,39 @@ function checkTurnEnd() {
 
       if (!foulThisTurn && nonQueenPocketed > 0) {
         queenPendingCover = false;
+        queenCoveredTeam = activeTeam;
         addTeamPoints(activeTeam, 50);
-        showToast(`${curP.name} Covered Queen! +50 PTS`, "#66ff99");
+        showToast(`${curP.name} Covered Queen!`, "#66ff99");
       } else if (!queenPocketedThisTurn || foulThisTurn) {
         queenPendingCover = false;
+        queenCoveredTeam = null;
+        addTeamGotiCount(activeTeam, -1);
         returnQueenToCenter();
         showToast("Queen Not Covered • Returned to Center", "#ff7766");
       }
     }
 
-    const coinsRemaining = objects.some(
-      (o) => o.type !== "striker" && o.active
-    );
+    enforceEightGotiCapWithoutQueen();
+    updateHUD();
 
-    if (!coinsRemaining) {
-      showMatchWinnerModal();
+    const winnerTeam = getWinnerTeamIfQualified();
+    if (winnerTeam) {
+      showMatchWinnerModal(winnerTeam);
       strikerReady = true;
       return;
     }
 
-    const keepTurn = pocketedThisTurn > 0 && !foulThisTurn;
+    const keepTurn = pocketedThisTurn > 0 && !foulThisTurn && !opponentCoinPocketedThisTurn;
     if (!keepTurn) {
       currentPlayerIndex = getNextPlayerIndex(currentPlayerIndex);
-      const nextP = PLAYERS[currentPlayerIndex];
+      const nextP = getPlayerConfig(currentPlayerIndex);
       showToast(`${nextP.name} (${nextP.sideLabel}) Turn`, "#ffe0a0");
     } else {
       showToast(`${curP.name} Bonus Turn!`, "#66ff99");
     }
 
+    pocketedCoinsThisTurn = [];
+    opponentCoinPocketedThisTurn = false;
     const nextSlider = positionStrikerOnBaseline(currentPlayerIndex, 0);
     slider.value = nextSlider;
     slider.disabled = isBotPlayer(currentPlayerIndex);
@@ -2802,6 +3418,8 @@ function animate() {
   }
   updatePhysics();
   updatePocketDrops();
+  updatePocketFlashRings();
+  updateWinnerBlast();
   checkTurnEnd();
   renderer.render(scene, camera);
 }
