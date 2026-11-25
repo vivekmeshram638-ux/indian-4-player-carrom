@@ -200,11 +200,13 @@ canvas {
 
 .panel-card {
   width: 100%;
-  max-width: 360px;
+  max-width: 368px;
+  max-height: 88vh;
+  overflow-y: auto;
   background: linear-gradient(180deg, #4b2410, #2c1307);
   border: 2px solid #e09f4d;
   border-radius: 18px;
-  padding: 20px;
+  padding: 18px;
   box-shadow: 0 12px 28px rgba(0,0,0,0.7);
   color: #fff3dc;
 }
@@ -310,11 +312,11 @@ canvas {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .panel-header h3 {
-  font-size: 20px;
+  font-size: 19px;
   color: #ffd97d;
 }
 
@@ -391,7 +393,7 @@ canvas {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .chip-btn {
@@ -410,16 +412,17 @@ canvas {
 }
 
 .online-badge {
-  display: inline-flex;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 6px;
-  font-size: 11.5px;
+  font-size: 11px;
   color: #9effb8;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(102, 255, 153, 0.35);
   border-radius: 10px;
-  padding: 5px 10px;
-  margin-bottom: 10px;
+  padding: 6px 9px;
+  margin-bottom: 9px;
 }
 
 .dot-live {
@@ -428,7 +431,67 @@ canvas {
   border-radius: 50%;
   background: #55ff88;
   box-shadow: 0 0 8px #55ff88;
+  flex-shrink: 0;
 }
+
+.online-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.online-tab-btn {
+  padding: 7px 6px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 217, 125, 0.35);
+  background: rgba(0, 0, 0, 0.25);
+  color: #e6cfa8;
+  font-size: 11.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.online-tab-btn.active {
+  background: linear-gradient(180deg, #ff8c24, #c94b00);
+  color: #fff;
+  border-color: #ffe28a;
+}
+
+.social-list {
+  max-height: 155px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.social-row {
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid rgba(255, 217, 125, 0.25);
+  border-radius: 10px;
+  padding: 7px 9px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+}
+
+.mini-act-btn {
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: none;
+  font-size: 10.5px;
+  font-weight: 800;
+  cursor: pointer;
+  color: #fff;
+}
+
+.mini-btn-invite { background: #1d8cf8; }
+.mini-btn-add    { background: #28a745; }
+.mini-btn-warn   { background: #c94b00; }
 
 .ad-card {
   width: 100%;
@@ -482,26 +545,26 @@ canvas {
 
 .room-input {
   width: 100%;
-  padding: 10px 12px;
+  padding: 9px 11px;
   border-radius: 10px;
   border: 1px solid #d4944a;
   background: #1b0c05;
   color: #fff;
-  font-size: 14px;
-  margin-bottom: 10px;
+  font-size: 13.5px;
+  margin-bottom: 8px;
 }
 
 .action-btn {
   width: 100%;
-  padding: 12px;
+  padding: 11px;
   border-radius: 12px;
   border: none;
   background: linear-gradient(180deg, #ffcc22, #e08b00);
   color: #2b1102;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 800;
   cursor: pointer;
-  margin-top: 6px;
+  margin-top: 5px;
 }
 
 .action-btn:disabled {
@@ -511,15 +574,15 @@ canvas {
 
 .secondary-btn {
   width: 100%;
-  padding: 10px;
+  padding: 9px;
   border-radius: 12px;
   border: 1px solid rgba(255, 217, 125, 0.4);
   background: rgba(255, 255, 255, 0.08);
   color: #ffe8c2;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 6px;
+  margin-top: 5px;
 }
 
 .king-rank-box {
@@ -533,15 +596,8 @@ canvas {
   line-height: 1.55;
 }
 
-.king-1st {
-  color: #ffd97d;
-  font-weight: 900;
-}
-
-.king-2nd {
-  color: #d7e5ff;
-  font-weight: 800;
-}
+.king-1st { color: #ffd97d; font-weight: 900; }
+.king-2nd { color: #d7e5ff; font-weight: 800; }
 
 .sportsmanship-box {
   background: rgba(255, 204, 34, 0.12);
@@ -830,6 +886,31 @@ canvas {
   box-shadow: 0 2px 7px rgba(0,0,0,0.8);
 }
 
+/* ONLINE VOICE MIC BUTTON */
+#onlineMicBtn {
+  display: none;
+  position: fixed;
+  bottom: 18px;
+  left: 16px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 20px;
+  background: rgba(34, 20, 12, 0.92);
+  border: 1.5px solid #ffd97d;
+  color: #ffe8b8;
+  font-size: 11.5px;
+  font-weight: 800;
+  cursor: pointer;
+  z-index: 16;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.55);
+}
+
+#onlineMicBtn.mic-active {
+  background: linear-gradient(180deg, #28a745, #156928);
+  border-color: #b7ffca;
+  color: #fff;
+}
+
 /* BOTTOM RIGHT GOLDEN MENU BUTTON */
 #cornerMenuBtn {
   display: none;
@@ -1003,7 +1084,7 @@ canvas {
   </div>
 </div>
 
-<!-- ONLINE LOBBY MODAL -->
+<!-- ONLINE LOBBY MODAL (ROOM + FRIENDS + WORLD LOBBY) -->
 <div id="onlineModal">
   <div class="panel-card">
     <div class="panel-header">
@@ -1011,21 +1092,66 @@ canvas {
       <button type="button" class="close-x" id="closeOnlineBtn">✕</button>
     </div>
     <div class="online-badge">
-      <span class="dot-live"></span>
-      <span id="onlineUserTag">Guest • Room Matchmaking</span>
+      <div style="display:flex; align-items:center; gap:6px;">
+        <span class="dot-live"></span>
+        <span id="onlineUserTag">Guest • Room Matchmaking</span>
+      </div>
+      <span id="myPlayerCodeTag" style="color:#ffd97d; font-weight:800; cursor:pointer;" title="Tap to copy ID">ID: ----</span>
     </div>
-    <p style="font-size:12.5px; color:#e6cfa8; margin-bottom:8px;">
-      Room code daalein ya quick room select karein:
-    </p>
-    <div class="quick-rooms">
-      <button type="button" class="chip-btn" data-room="CARROM4P">CARROM4P</button>
-      <button type="button" class="chip-btn" data-room="DESI101">DESI101</button>
-      <button type="button" class="chip-btn" data-room="QUEEN99">QUEEN99</button>
+
+    <div class="online-tabs">
+      <button type="button" class="online-tab-btn active" data-otab="room">Room</button>
+      <button type="button" class="online-tab-btn" data-otab="friends">Friends</button>
+      <button type="button" class="online-tab-btn" data-otab="world">World</button>
     </div>
-    <input type="text" class="room-input" id="roomCodeInput" placeholder="Room Code (e.g. CARROM123)" maxlength="12" style="text-transform:uppercase;">
-    <button type="button" class="action-btn" id="quickMatchBtn">Join Room</button>
-    <button type="button" class="secondary-btn" id="randomRoomBtn">Random Quick Match</button>
-    <button type="button" class="secondary-btn" id="modalBonusAdBtn">Watch Ad for +250 Bonus Coins</button>
+
+    <!-- TAB 1: ROOM -->
+    <div id="onlineTabRoom">
+      <p style="font-size:12px; color:#e6cfa8; margin-bottom:8px;">
+        Room code daalein ya quick room select karein:
+      </p>
+      <div class="quick-rooms">
+        <button type="button" class="chip-btn" data-room="CARROM4P">CARROM4P</button>
+        <button type="button" class="chip-btn" data-room="DESI101">DESI101</button>
+        <button type="button" class="chip-btn" data-room="QUEEN99">QUEEN99</button>
+      </div>
+      <input type="text" class="room-input" id="roomCodeInput" placeholder="Room Code (e.g. CARROM123)" maxlength="12" style="text-transform:uppercase;">
+      <button type="button" class="action-btn" id="quickMatchBtn">Join Room</button>
+      <button type="button" class="secondary-btn" id="randomRoomBtn">Random Quick Match</button>
+      <button type="button" class="secondary-btn" id="modalBonusAdBtn">Watch Ad for +250 Bonus Coins</button>
+    </div>
+
+    <!-- TAB 2: FRIENDS LIST & DISTANCE FRIENDS INVITE -->
+    <div id="onlineTabFriends" style="display:none;">
+      <p style="font-size:11.5px; color:#e6cfa8; margin-bottom:6px;">
+        Dost ka Player ID / Name daal kar jodein ya invite karein:
+      </p>
+      <input type="text" class="room-input" id="addFriendInput" placeholder="Friend ID (e.g. I4PC-1234)" maxlength="24">
+      <button type="button" class="action-btn" id="addFriendBtn">Add Friend</button>
+
+      <div style="font-size:11.5px; color:#ffd97d; font-weight:800; margin-top:10px;">Friend Requests</div>
+      <div class="social-list" id="incomingRequestsList" style="max-height:80px;"></div>
+
+      <div style="font-size:11.5px; color:#9effb8; font-weight:800; margin-top:8px;">Friends List</div>
+      <div class="social-list" id="friendsListContainer" style="max-height:105px;"></div>
+    </div>
+
+    <!-- TAB 3: WORLD PLAYERS (RANDOM INVITE & FRIEND REQUEST) -->
+    <div id="onlineTabWorld" style="display:none;">
+      <p style="font-size:11.5px; color:#e6cfa8; margin-bottom:6px;">
+        Random online players ko invite karein ya friend request bhejein:
+      </p>
+      <div class="social-list" id="worldPlayersContainer" style="max-height:210px;"></div>
+    </div>
+
+    <div id="incomingInviteBanner" style="display:none; margin-top:8px; padding:8px; border-radius:10px; background:rgba(29,140,248,0.22); border:1px solid #7ab2ff; font-size:11.5px;">
+      <div id="incomingInviteText" style="margin-bottom:6px; font-weight:700;"></div>
+      <div style="display:flex; gap:6px;">
+        <button type="button" class="mini-act-btn mini-btn-add" id="acceptInviteBtn" style="flex:1;">Accept & Join</button>
+        <button type="button" class="mini-act-btn mini-btn-warn" id="declineInviteBtn" style="flex:1;">Decline</button>
+      </div>
+    </div>
+
     <p id="onlineStatusText" style="font-size:12px; color:#ffd97d; margin-top:10px; min-height:24px; line-height:1.35;"></p>
   </div>
 </div>
@@ -1127,6 +1253,7 @@ canvas {
   <input type="range" id="baselineSlider" min="-2.385" max="2.385" step="0.045" value="0">
 </div>
 
+<button type="button" id="onlineMicBtn" title="Voice Chat Mic">🔇 Mic Off</button>
 <button type="button" id="cornerMenuBtn" title="Settings">☰</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -1198,6 +1325,25 @@ let onlineRoomRef = null;
 let onlineRoomListener = null;
 let lastAppliedShotId = null;
 
+// SOCIAL & VOICE CHAT STATE (FRIENDS, WORLD LOBBY, WEBRTC MIC)
+let myShortCode = localStorage.getItem("i4pc_short_code");
+if (!myShortCode) {
+  myShortCode = "I4PC-" + String(Math.floor(1000 + Math.random() * 9000));
+  localStorage.setItem("i4pc_short_code", myShortCode);
+}
+
+let friendsMap = JSON.parse(localStorage.getItem("i4pc_friends") || "{}");
+let incomingFriendRequests = {};
+let worldLobbyUsers = {};
+let pendingMatchInvite = null;
+let voiceMicEnabled = false;
+let localMicStream = null;
+let peerConnections = {};
+let voiceSignalRef = null;
+let lobbyPresenceRef = null;
+let friendReqRef = null;
+let inviteInboxRef = null;
+
 function getOnlinePlayerId() {
   if (userAccount && userAccount.uid) return userAccount.uid;
   let guestId = sessionStorage.getItem("i4pc_guest_id");
@@ -1212,6 +1358,365 @@ function getOnlineDisplayName() {
   return userAccount && userAccount.shortLabel ? userAccount.shortLabel : "Player";
 }
 
+function saveLocalFriends() {
+  localStorage.setItem("i4pc_friends", JSON.stringify(friendsMap));
+}
+
+function updateMicButtonUI() {
+  const btn = document.getElementById("onlineMicBtn");
+  if (!btn) return;
+  if (gameActive && gameMode === "online") {
+    btn.style.display = "inline-flex";
+    btn.style.alignItems = "center";
+    btn.style.gap = "5px";
+  } else {
+    btn.style.display = "none";
+  }
+  if (voiceMicEnabled) {
+    btn.classList.add("mic-active");
+    btn.textContent = "🎤 Mic ON";
+  } else {
+    btn.classList.remove("mic-active");
+    btn.textContent = "🔇 Mic Off";
+  }
+}
+
+function cleanupVoiceChat() {
+  voiceMicEnabled = false;
+  if (localMicStream) {
+    localMicStream.getTracks().forEach(t => t.stop());
+    localMicStream = null;
+  }
+  Object.values(peerConnections).forEach(pc => {
+    try { pc.close(); } catch (_) {}
+  });
+  peerConnections = {};
+  if (voiceSignalRef) {
+    voiceSignalRef.off();
+    voiceSignalRef.remove().catch(() => {});
+    voiceSignalRef = null;
+  }
+  updateMicButtonUI();
+}
+
+function createVoicePeer(remoteId, roomCode, isInitiator) {
+  if (peerConnections[remoteId]) return peerConnections[remoteId];
+  const pc = new RTCPeerConnection({
+    iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
+  });
+  peerConnections[remoteId] = pc;
+
+  if (localMicStream) {
+    localMicStream.getTracks().forEach(track => pc.addTrack(track, localMicStream));
+  }
+
+  pc.ontrack = (event) => {
+    let audioEl = document.getElementById("voice_audio_" + remoteId);
+    if (!audioEl) {
+      audioEl = document.createElement("audio");
+      audioEl.id = "voice_audio_" + remoteId;
+      audioEl.autoplay = true;
+      audioEl.playsInline = true;
+      document.body.appendChild(audioEl);
+    }
+    audioEl.srcObject = event.streams[0];
+  };
+
+  const myId = getOnlinePlayerId();
+  pc.onicecandidate = (e) => {
+    if (e.candidate && firebaseDb && roomCode) {
+      firebaseDb.ref(`rooms/${roomCode}/voiceSignals/${remoteId}/${myId}/ice`).push(e.candidate.toJSON()).catch(() => {});
+    }
+  };
+
+  if (isInitiator && firebaseDb && roomCode) {
+    pc.createOffer().then(offer => pc.setLocalDescription(offer)).then(() => {
+      firebaseDb.ref(`rooms/${roomCode}/voiceSignals/${remoteId}/${myId}/offer`).set({
+        type: pc.localDescription.type,
+        sdp: pc.localDescription.sdp
+      }).catch(() => {});
+    }).catch(() => {});
+  }
+
+  return pc;
+}
+
+function setupRoomVoiceListeners(roomCode) {
+  if (!firebaseDb || !roomCode) return;
+  const myId = getOnlinePlayerId();
+  if (voiceSignalRef) voiceSignalRef.off();
+  voiceSignalRef = firebaseDb.ref(`rooms/${roomCode}/voiceSignals/${myId}`);
+
+  voiceSignalRef.on("child_added", (snap) => {
+    const senderId = snap.key;
+    if (!senderId || senderId === myId) return;
+    const senderRef = snap.ref;
+
+    senderRef.child("offer").on("value", async (oSnap) => {
+      const offer = oSnap.val();
+      if (!offer) return;
+      const pc = createVoicePeer(senderId, roomCode, false);
+      if (pc.signalingState !== "stable" && pc.currentRemoteDescription) return;
+      try {
+        await pc.setRemoteDescription(new RTCSessionDescription(offer));
+        const answer = await pc.createAnswer();
+        await pc.setLocalDescription(answer);
+        await firebaseDb.ref(`rooms/${roomCode}/voiceSignals/${senderId}/${myId}/answer`).set({
+          type: pc.localDescription.type,
+          sdp: pc.localDescription.sdp
+        });
+      } catch (_) {}
+    });
+
+    senderRef.child("answer").on("value", async (aSnap) => {
+      const ans = aSnap.val();
+      if (!ans) return;
+      const pc = peerConnections[senderId];
+      if (pc && pc.signalingState === "have-local-offer") {
+        try {
+          await pc.setRemoteDescription(new RTCSessionDescription(ans));
+        } catch (_) {}
+      }
+    });
+
+    senderRef.child("ice").on("child_added", async (cSnap) => {
+      const cand = cSnap.val();
+      if (!cand) return;
+      const pc = createVoicePeer(senderId, roomCode, false);
+      try {
+        await pc.addIceCandidate(new RTCIceCandidate(cand));
+      } catch (_) {}
+    });
+  });
+}
+
+async function toggleOnlineVoiceMic() {
+  if (gameMode !== "online" || !gameActive) {
+    showToast("Mic sirf Online match mein kaam karta hai");
+    return;
+  }
+  if (!voiceMicEnabled) {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      showToast("Is device par mic audio supported nahi hai");
+      return;
+    }
+    try {
+      localMicStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+      voiceMicEnabled = true;
+      setupRoomVoiceListeners(activeRoomCode);
+
+      if (firebaseDb && activeRoomCode) {
+        const myId = getOnlinePlayerId();
+        const playersSnap = await firebaseDb.ref(`rooms/${activeRoomCode}/players`).get();
+        if (playersSnap.exists()) {
+          Object.keys(playersSnap.val()).forEach(otherId => {
+            if (otherId !== myId) {
+              createVoicePeer(otherId, activeRoomCode, true);
+            }
+          });
+        }
+      }
+      updateMicButtonUI();
+      showToast("🎤 Mic ON — Voice chat active");
+    } catch (_) {
+      showToast("Mic permission allow karein");
+    }
+  } else {
+    cleanupVoiceChat();
+    showToast("🔇 Mic Muted");
+  }
+}
+
+function renderSocialLists() {
+  const myId = getOnlinePlayerId();
+  const reqBox = document.getElementById("incomingRequestsList");
+  const friendsBox = document.getElementById("friendsListContainer");
+  const worldBox = document.getElementById("worldPlayersContainer");
+  if (!reqBox || !friendsBox || !worldBox) return;
+
+  const reqEntries = Object.entries(incomingFriendRequests || {});
+  if (!reqEntries.length) {
+    reqBox.innerHTML = `<div style="color:#c9b28e; font-size:11px;">Koi pending request nahi</div>`;
+  } else {
+    reqBox.innerHTML = reqEntries.map(([fromId, info]) => `
+      <div class="social-row">
+        <span><b>${info.name || "Player"}</b> (${info.code || fromId.slice(0, 6)})</span>
+        <div style="display:flex; gap:4px;">
+          <button type="button" class="mini-act-btn mini-btn-add" onclick="acceptFriendRequest('${fromId}')">Accept</button>
+          <button type="button" class="mini-act-btn mini-btn-warn" onclick="declineFriendRequest('${fromId}')">✕</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  const friendEntries = Object.entries(friendsMap || {});
+  if (!friendEntries.length) {
+    friendsBox.innerHTML = `<div style="color:#c9b28e; font-size:11px;">Abhi koi friend add nahi hai. ID se add karein ya World se request bhejein.</div>`;
+  } else {
+    friendsBox.innerHTML = friendEntries.map(([fid, fdata]) => {
+      const isOnline = Boolean(worldLobbyUsers[fid]);
+      return `
+        <div class="social-row">
+          <div>
+            <b>${fdata.name || "Friend"}</b>
+            <span style="color:${isOnline ? "#9effb8" : "#c9b28e"}; font-size:10px;">
+              • ${isOnline ? "Online" : "Offline"} (${fdata.code || fid.slice(0, 6)})
+            </span>
+          </div>
+          <div style="display:flex; gap:4px;">
+            <button type="button" class="mini-act-btn mini-btn-invite" onclick="invitePlayerToRoom('${fid}', '${(fdata.name || "Friend").replace(/'/g, "")}')">Invite</button>
+            <button type="button" class="mini-act-btn mini-btn-warn" onclick="removeFriend('${fid}')">✕</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  const worldEntries = Object.entries(worldLobbyUsers || {}).filter(([uid]) => uid !== myId);
+  if (!worldEntries.length) {
+    worldBox.innerHTML = `<div style="color:#c9b28e; font-size:11px;">Abhi World lobby mein aur players nahi dikh rahe.</div>`;
+  } else {
+    worldBox.innerHTML = worldEntries.map(([uid, udata]) => {
+      const safeName = (udata.name || "Player").replace(/'/g, "");
+      const alreadyFriend = Boolean(friendsMap[uid]);
+      return `
+        <div class="social-row">
+          <div>
+            <b>${udata.name || "Player"}</b>
+            <div style="color:#b7d2ff; font-size:10px;">${udata.code || uid.slice(0, 6)} • Online</div>
+          </div>
+          <div style="display:flex; gap:4px;">
+            <button type="button" class="mini-act-btn mini-btn-invite" onclick="invitePlayerToRoom('${uid}', '${safeName}')">Invite</button>
+            ${alreadyFriend
+              ? `<span style="color:#9effb8; font-size:10px; font-weight:700;">Friend</span>`
+              : `<button type="button" class="mini-act-btn mini-btn-add" onclick="sendFriendRequest('${uid}', '${safeName}')">+ Req</button>`
+            }
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+}
+
+function registerOnlineSocialListeners() {
+  const myId = getOnlinePlayerId();
+  const codeTag = document.getElementById("myPlayerCodeTag");
+  if (codeTag) codeTag.textContent = `ID: ${myShortCode}`;
+
+  if (!firebaseDb) {
+    renderSocialLists();
+    return;
+  }
+
+  if (lobbyPresenceRef) lobbyPresenceRef.off();
+  lobbyPresenceRef = firebaseDb.ref("onlineLobby");
+  const meLobbyRef = lobbyPresenceRef.child(myId);
+  meLobbyRef.set({
+    name: getOnlineDisplayName(),
+    code: myShortCode,
+    lastSeen: Date.now()
+  });
+  meLobbyRef.onDisconnect().remove();
+
+  lobbyPresenceRef.on("value", (snap) => {
+    worldLobbyUsers = snap.val() || {};
+    renderSocialLists();
+  });
+
+  if (friendReqRef) friendReqRef.off();
+  friendReqRef = firebaseDb.ref(`friendRequests/${myId}`);
+  friendReqRef.on("value", (snap) => {
+    incomingFriendRequests = snap.val() || {};
+    renderSocialLists();
+  });
+
+  if (inviteInboxRef) inviteInboxRef.off();
+  inviteInboxRef = firebaseDb.ref(`invites/${myId}`);
+  inviteInboxRef.on("value", (snap) => {
+    const inv = snap.val();
+    const banner = document.getElementById("incomingInviteBanner");
+    const textEl = document.getElementById("incomingInviteText");
+    if (inv && inv.roomCode && banner && textEl) {
+      pendingMatchInvite = inv;
+      textEl.textContent = `${inv.fromName || "Player"} ne Room "${inv.roomCode}" (${inv.playerCount || 4}P) ke liye invite bheja hai!`;
+      banner.style.display = "block";
+    } else if (banner) {
+      pendingMatchInvite = null;
+      banner.style.display = "none";
+    }
+  });
+}
+
+window.sendFriendRequest = function(targetId, targetName) {
+  if (!firebaseDb) {
+    showToast("Friend request ke liye Firebase Realtime DB zaroori hai");
+    return;
+  }
+  const myId = getOnlinePlayerId();
+  firebaseDb.ref(`friendRequests/${targetId}/${myId}`).set({
+    name: getOnlineDisplayName(),
+    code: myShortCode,
+    sentAt: Date.now()
+  }).then(() => {
+    showToast(`${targetName} ko friend request bhej di gayi!`);
+  }).catch(() => {});
+};
+
+window.acceptFriendRequest = function(fromId) {
+  const reqInfo = incomingFriendRequests[fromId];
+  if (!reqInfo) return;
+  friendsMap[fromId] = {
+    name: reqInfo.name || "Friend",
+    code: reqInfo.code || fromId.slice(0, 6)
+  };
+  saveLocalFriends();
+  if (firebaseDb) {
+    const myId = getOnlinePlayerId();
+    firebaseDb.ref(`users/${myId}/friends/${fromId}`).set(friendsMap[fromId]).catch(() => {});
+    firebaseDb.ref(`friendRequests/${myId}/${fromId}`).remove().catch(() => {});
+  }
+  renderSocialLists();
+  showToast(`${reqInfo.name || "Friend"} friends list mein add ho gaya!`);
+};
+
+window.declineFriendRequest = function(fromId) {
+  if (firebaseDb) {
+    firebaseDb.ref(`friendRequests/${getOnlinePlayerId()}/${fromId}`).remove().catch(() => {});
+  }
+  delete incomingFriendRequests[fromId];
+  renderSocialLists();
+};
+
+window.removeFriend = function(fid) {
+  delete friendsMap[fid];
+  saveLocalFriends();
+  if (firebaseDb) {
+    firebaseDb.ref(`users/${getOnlinePlayerId()}/friends/${fid}`).remove().catch(() => {});
+  }
+  renderSocialLists();
+};
+
+window.invitePlayerToRoom = function(targetId, targetName) {
+  const rawCode = (document.getElementById("roomCodeInput")?.value || "").trim().toUpperCase();
+  const codeToUse = rawCode || activeRoomCode || ("FRD" + Math.floor(100 + Math.random() * 900));
+  if (document.getElementById("roomCodeInput")) {
+    document.getElementById("roomCodeInput").value = codeToUse;
+  }
+  if (!firebaseDb) {
+    showToast(`Invite code ${codeToUse} ready — dost ko share karein`);
+    return;
+  }
+  firebaseDb.ref(`invites/${targetId}`).set({
+    fromId: getOnlinePlayerId(),
+    fromName: getOnlineDisplayName(),
+    roomCode: codeToUse,
+    playerCount,
+    createdAt: Date.now()
+  }).then(() => {
+    showToast(`${targetName} ko Room "${codeToUse}" ka invite bheja gaya!`);
+  }).catch(() => {});
+};
+
 function cleanupOnlineRoomListener() {
   if (onlineRoomRef && onlineRoomListener) {
     onlineRoomRef.off("value", onlineRoomListener);
@@ -1219,6 +1724,7 @@ function cleanupOnlineRoomListener() {
   onlineRoomRef = null;
   onlineRoomListener = null;
   lastAppliedShotId = null;
+  cleanupVoiceChat();
 }
 
 function publishOnlineShot(sliderVal, vx, vz) {
@@ -1289,9 +1795,11 @@ function subscribeToOnlineRoom(roomCode, count) {
   onlineRoomRef.child("mode").set(count);
   onlineRoomRef.child(`players/${pid}`).set({
     name: pname,
+    code: myShortCode,
     joinedAt: Date.now()
   });
   onlineRoomRef.child(`players/${pid}`).onDisconnect().remove();
+  setupRoomVoiceListeners(roomCode);
 
   onlineRoomListener = onlineRoomRef.on("value", (snap) => {
     const data = snap.val();
@@ -1325,6 +1833,7 @@ async function syncUserProfileToDb(acc, coinsToSave) {
       provider: acc.provider || "Google",
       shortLabel: acc.shortLabel || "Player",
       identifier: acc.identifier || "",
+      shortCode: myShortCode,
       coins: Number(coinsToSave),
       updatedAt: Date.now()
     });
@@ -1355,6 +1864,8 @@ function renderAccountUI() {
   const statusEl = document.getElementById("authCurrentStatus");
   const signOutBtn = document.getElementById("signOutBtn");
   const onlineUserTag = document.getElementById("onlineUserTag");
+  const codeTag = document.getElementById("myPlayerCodeTag");
+  if (codeTag) codeTag.textContent = `ID: ${myShortCode}`;
 
   if (userAccount) {
     authBtn.textContent = `${userAccount.provider}: ${userAccount.shortLabel}`;
@@ -1388,6 +1899,11 @@ if (firebaseAuth) {
             localStorage.setItem("i4pc_coins", String(walletCoins));
             walletCoinsEl.textContent = walletCoins;
           }
+          const fSnap = await firebaseDb.ref(`users/${fbUser.uid}/friends`).get();
+          if (fSnap.exists() && typeof fSnap.val() === "object") {
+            friendsMap = { ...friendsMap, ...fSnap.val() };
+            saveLocalFriends();
+          }
         } catch (_) {}
       }
 
@@ -1397,6 +1913,7 @@ if (firebaseAuth) {
         identifier: fbUser.email,
         uid: fbUser.uid
       });
+      registerOnlineSocialListeners();
     }
   });
 }
@@ -2027,7 +2544,6 @@ function updatePocketFlashRings() {
   }
 }
 
-// GOTI POCKET ME JANE PAR ~1.6 SECOND TAK POCKET KE ANDAR DIKHTI HAI (PIC REFERENCE)
 function startPocketDrop(obj, pocketPos, removeMeshOnDone) {
   if (pocketPos) {
     triggerPocketSinkEffect(pocketPos.x, pocketPos.z);
@@ -2209,7 +2725,6 @@ function returnCoinToCenterSpot(coin, offsetIndex = 0) {
   scene.add(coin.mesh);
 }
 
-// BINA QUEEN COVER KIYE 9TH GOTI DALNE PAR FOUL + 2 GOTIYAN BAHAR CENTER ME WAPAS
 function enforceEightGotiCapWithoutQueen() {
   let triggeredNinthWithoutQueenFoul = false;
   let centerIdx = 0;
@@ -2251,7 +2766,6 @@ function enforceEightGotiCapWithoutQueen() {
   }
 }
 
-// STRIKER FOUL HONE PAR EK GOTI BAHAR NIKALKAR CENTER ME LANA
 function bringOneGotiToCenterOnStrikerFoul(activeTeam) {
   if (pocketedCoinsThisTurn.length > 0) {
     restoreCoinsPocketedBeforeFoul(activeTeam);
@@ -2268,7 +2782,6 @@ function bringOneGotiToCenterOnStrikerFoul(activeTeam) {
   updateHUD();
 }
 
-// FOUL KE JUST PEHLE GIRI GOTIYON KO UNKE COLOR TEAM SE WAPAS NIKALNA
 function restoreCoinsPocketedBeforeFoul(activeTeam) {
   if (!pocketedCoinsThisTurn.length) return;
 
@@ -2300,7 +2813,6 @@ function restoreCoinsPocketedBeforeFoul(activeTeam) {
   updateHUD();
 }
 
-// SMARTER BOT AI SHOT SELECTION
 function isPathObstructed(ax, az, bx, bz, ignoreCoin, clearanceRadius) {
   const abx = bx - ax;
   const abz = bz - az;
@@ -2560,7 +3072,7 @@ slider.addEventListener("input", (e) => {
   e.target.value = applied;
 });
 
-// UI NAVIGATION: LOBBY -> SELECT MODE (FIRST PIC STYLE) -> 2P/4P -> GAME (GOTI COUNT 0, 1...)
+// UI NAVIGATION: LOBBY -> SELECT MODE (FIRST PIC STYLE) -> 2P/4P -> GAME
 const selectModeModal = document.getElementById("selectModeModal");
 const selectModeHeading = document.getElementById("selectModeHeading");
 const modePlayersModal = document.getElementById("modePlayersModal");
@@ -2582,8 +3094,9 @@ function enterGameMode(mode, count, bannerOverride = null, roomCode = "") {
   const initialSideClass = getPlayerConfig(0).sideClass;
   controlsEl.style.display = (initialSideClass === "side-right" || initialSideClass === "side-left") ? "flex" : "block";
   document.getElementById("cornerMenuBtn").style.display = "block";
+  updateMicButtonUI();
   setupBoard();
-  if (bannerOverride) {
+  if (bannerOverride && document.getElementById("modeBanner")) {
     document.getElementById("modeBanner").textContent = bannerOverride;
   }
   if (mode === "online" && roomCode) {
@@ -2615,6 +3128,7 @@ function returnToHome() {
   document.getElementById("gameHud").style.display = "none";
   controlsEl.style.display = "none";
   document.getElementById("cornerMenuBtn").style.display = "none";
+  updateMicButtonUI();
   document.getElementById("homeScreen").style.display = "flex";
 }
 
@@ -2650,6 +3164,68 @@ document.getElementById("closeModeChoiceBtn").addEventListener("click", () => {
   modePlayersModal.style.display = "none";
   pendingOnlineAction = null;
 });
+
+// ONLINE TABS & SOCIAL HANDLERS
+document.querySelectorAll(".online-tab-btn").forEach((tabBtn) => {
+  tabBtn.addEventListener("click", () => {
+    document.querySelectorAll(".online-tab-btn").forEach(b => b.classList.remove("active"));
+    tabBtn.classList.add("active");
+    const tab = tabBtn.dataset.otab;
+    document.getElementById("onlineTabRoom").style.display = tab === "room" ? "block" : "none";
+    document.getElementById("onlineTabFriends").style.display = tab === "friends" ? "block" : "none";
+    document.getElementById("onlineTabWorld").style.display = tab === "world" ? "block" : "none";
+    renderSocialLists();
+  });
+});
+
+document.getElementById("myPlayerCodeTag").addEventListener("click", () => {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(myShortCode).catch(() => {});
+  }
+  showToast(`Aapki ID: ${myShortCode}`);
+});
+
+document.getElementById("addFriendBtn").addEventListener("click", () => {
+  const raw = (document.getElementById("addFriendInput").value || "").trim();
+  if (!raw) {
+    showToast("Dost ka ID ya naam likhein");
+    return;
+  }
+  const fid = "friend_" + raw.toLowerCase().replace(/[^a-z0-9_-]/g, "_");
+  friendsMap[fid] = {
+    name: raw,
+    code: raw.toUpperCase()
+  };
+  saveLocalFriends();
+  if (firebaseDb) {
+    firebaseDb.ref(`users/${getOnlinePlayerId()}/friends/${fid}`).set(friendsMap[fid]).catch(() => {});
+  }
+  document.getElementById("addFriendInput").value = "";
+  renderSocialLists();
+  showToast(`${raw} friends list mein add ho gaya!`);
+});
+
+document.getElementById("acceptInviteBtn").addEventListener("click", () => {
+  if (!pendingMatchInvite || !pendingMatchInvite.roomCode) return;
+  const code = String(pendingMatchInvite.roomCode).toUpperCase();
+  const cnt = Number(pendingMatchInvite.playerCount) === 2 ? 2 : 4;
+  if (firebaseDb) {
+    firebaseDb.ref(`invites/${getOnlinePlayerId()}`).remove().catch(() => {});
+  }
+  pendingMatchInvite = null;
+  document.getElementById("incomingInviteBanner").style.display = "none";
+  enterGameMode("online", cnt, null, code);
+});
+
+document.getElementById("declineInviteBtn").addEventListener("click", () => {
+  if (firebaseDb) {
+    firebaseDb.ref(`invites/${getOnlinePlayerId()}`).remove().catch(() => {});
+  }
+  pendingMatchInvite = null;
+  document.getElementById("incomingInviteBanner").style.display = "none";
+});
+
+document.getElementById("onlineMicBtn").addEventListener("click", toggleOnlineVoiceMic);
 
 // MATCH PREP / REWARDED BONUS MODAL CONTROLLER
 const adOverlayEl = document.getElementById("adOverlayModal");
@@ -2763,6 +3339,7 @@ googleSignInBtn.addEventListener("click", async () => {
         identifier: email,
         uid: user.uid
       });
+      registerOnlineSocialListeners();
       authMessage.style.color = "#66ff99";
       authMessage.textContent = `Signed in as ${email}!`;
     } catch (err) {
@@ -2784,6 +3361,7 @@ document.getElementById("fbSignInBtn").addEventListener("click", () => {
     shortLabel: "FB Player",
     identifier: "fb.com/carrom.player"
   });
+  registerOnlineSocialListeners();
   authMessage.style.color = "#66ff99";
   authMessage.textContent = "Facebook account connected!";
 });
@@ -2822,6 +3400,7 @@ phoneActionBtn.addEventListener("click", () => {
     shortLabel: `+91..${otpSentForPhone.slice(-4)}`,
     identifier: `+91 ${otpSentForPhone}`
   });
+  registerOnlineSocialListeners();
   authMessage.style.color = "#66ff99";
   authMessage.textContent = "Mobile number verified & signed in!";
 });
@@ -2908,6 +3487,8 @@ document.getElementById("openOnlineBtn").addEventListener("click", () => {
   quickMatchBtn.disabled = false;
   randomRoomBtn.disabled = false;
   renderAccountUI();
+  registerOnlineSocialListeners();
+  renderSocialLists();
   const savedRoom = localStorage.getItem("i4pc_last_room") || "";
   if (savedRoom && !roomInputEl.value) {
     roomInputEl.value = savedRoom;
@@ -3136,7 +3717,6 @@ function getWinnerTeamIfQualified() {
   const whiteLeft = objects.filter((o) => o.active && o.type === "white").length;
   const blackLeft = objects.filter((o) => o.active && o.type === "black").length;
 
-  // Winner tabhi hoga jab Queen cover ho chuki ho AND us team ki saari gotiyan khatam ho chuki hon
   if (queenCoveredTeam === "A" && whiteLeft === 0) {
     return "A";
   }
@@ -3148,6 +3728,7 @@ function getWinnerTeamIfQualified() {
 
 function showMatchWinnerModal(winnerTeam = null) {
   clearTimeout(winnerModalTimer);
+  cleanupVoiceChat();
   walletCoins += Math.max(teamAScore, teamBScore) * 2;
   saveWalletCoins();
 
